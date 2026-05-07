@@ -11,6 +11,7 @@ $primary-color: var(--color-primary, #1a1a2e);
 $accent-color:  var(--color-accent,  #e94560);
 $text-color:    var(--color-text,    #333);
 $bg-color:      var(--color-bg,      #fff);
+$nav-color:     var(--color-nav,     #b91c1c);
 
 // ─── Reset ────────────────────────────────────────────────────────────────────
 *, *::before, *::after {
@@ -125,7 +126,7 @@ main {
 
 // ─── Header ───────────────────────────────────────────────────────────────────
 .site-header {
-  background: $primary-color;
+  background: $nav-color;
   color: #fff;
   padding: 1rem 1.5rem;
   position: sticky;

@@ -18,6 +18,7 @@
 {{ $primary     := default "#1a1a2e" $s.color_primary }}
 {{ $accent      := default "#e94560" $s.color_accent }}
 {{ $textColor   := default "#333333" $s.color_text }}
+{{ $navColor    := default "#b91c1c" $s.color_nav }}
 {{ $bg          := default "#ffffff" $s.color_bg }}
 {{ $surface     := default "#f1f5f9" $s.color_surface }}
 {{ $border      := default "#e2e8f0" $s.color_border }}
@@ -46,6 +47,7 @@
   --color-muted:   {{ $muted }};
   --color-subtle:  {{ $subtle }};
   --color-pre-bg:  {{ $preBg }};
+  --color-nav:     {{ $navColor }};
 }
 </style>
 
