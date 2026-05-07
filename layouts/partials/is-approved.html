@@ -1,0 +1,30 @@
+{{/*
+  Partial: is-approved.html
+  Outputs "true" if a page should appear on global pages (homepage, /articles/,
+  /news/, /events/). Non-state content always passes. State content only passes
+  if its slug is listed in data/approved.yml under <state> → <section>.
+
+  The state chapter page (/states/<slug>/) bypasses this and shows all state content.
+
+  Usage: {{ if partial "is-approved.html" . }} ... {{ end }}
+*/}}
+{{- $page := . -}}
+{{- $isState := or $page.Params.states $page.Params.section -}}
+{{- if not $isState -}}
+true
+{{- else -}}
+  {{- $stateSlug := "" -}}
+  {{- with $page.Params.states -}}
+    {{- $stateSlug = index . 0 | urlize -}}
+  {{- else -}}
+    {{- $stateSlug = $page.Params.section | urlize -}}
+  {{- end -}}
+  {{- $section     := $page.Section -}}
+  {{- $slug        := $page.File.Dir | path.Base -}}
+  {{- $stateData   := index hugo.Data.approved $stateSlug -}}
+  {{- $sectionList := slice -}}
+  {{- with $stateData -}}
+    {{- $sectionList = index . $section | default slice -}}
+  {{- end -}}
+  {{- if in $sectionList $slug -}}true{{- end -}}
+{{- end -}}

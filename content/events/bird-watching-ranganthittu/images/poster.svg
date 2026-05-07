@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0c2038"/>
+      <stop offset="48%" stop-color="#1a4870"/>
+      <stop offset="78%" stop-color="#d97210"/>
+      <stop offset="100%" stop-color="#b85208"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c05c08" stop-opacity="0.7"/>
+      <stop offset="35%" stop-color="#0e3548"/>
+      <stop offset="100%" stop-color="#081c28"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="95%" r="55%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tp" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d2033"/>
+      <stop offset="100%" stop-color="#0f2840"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="1200" height="455" fill="url(#sky)"/>
+  <!-- Horizon glow -->
+  <rect width="1200" height="455" fill="url(#glow)"/>
+
+  <!-- Rising sun disc near horizon -->
+  <circle cx="600" cy="268" r="44" fill="#f59e0b" opacity="0.55"/>
+  <circle cx="600" cy="268" r="30" fill="#fbbf24" opacity="0.8"/>
+  <circle cx="600" cy="268" r="18" fill="#fef08a"/>
+
+  <!-- Water surface -->
+  <rect x="0" y="268" width="1200" height="187" fill="url(#water)"/>
+
+  <!-- Sun reflection on water -->
+  <ellipse cx="600" cy="312" rx="28" ry="55" fill="#f59e0b" opacity="0.18"/>
+  <ellipse cx="600" cy="335" rx="14" ry="42" fill="#fbbf24" opacity="0.22"/>
+
+  <!-- Water ripple lines -->
+  <line x1="220" y1="305" x2="390" y2="305" stroke="white" stroke-width="0.8" stroke-opacity="0.12"/>
+  <line x1="460" y1="322" x2="755" y2="322" stroke="white" stroke-width="0.8" stroke-opacity="0.1"/>
+  <line x1="105" y1="345" x2="295" y2="345" stroke="white" stroke-width="0.7" stroke-opacity="0.09"/>
+  <line x1="810" y1="340" x2="1048" y2="340" stroke="white" stroke-width="0.7" stroke-opacity="0.09"/>
+  <line x1="358" y1="365" x2="548" y2="365" stroke="white" stroke-width="0.7" stroke-opacity="0.08"/>
+  <line x1="608" y1="385" x2="892" y2="385" stroke="white" stroke-width="0.7" stroke-opacity="0.07"/>
+
+  <!-- Reed stems + cattails (left) -->
+  <g fill="#062018">
+    <rect x="23" y="185" width="4.5" height="270" rx="2"/>
+    <rect x="50" y="162" width="4" height="293" rx="2"/>
+    <rect x="76" y="175" width="4" height="280" rx="2"/>
+    <rect x="102" y="165" width="3.5" height="290" rx="1.8"/>
+    <rect x="126" y="192" width="3" height="263" rx="1.5"/>
+    <rect x="148" y="208" width="2.8" height="247" rx="1.4"/>
+    <rect x="168" y="222" width="2.5" height="233" rx="1.2"/>
+    <rect x="12" y="228" width="3.2" height="227" rx="1.5"/>
+
+    <!-- Cattail heads -->
+    <ellipse cx="25.2" cy="186" rx="5.5" ry="14"/>
+    <ellipse cx="52" cy="163" rx="5" ry="13"/>
+    <ellipse cx="78" cy="176" rx="4.8" ry="13"/>
+    <ellipse cx="103.8" cy="166" rx="4.2" ry="11.5"/>
+    <ellipse cx="127.5" cy="193" rx="3.8" ry="10"/>
+    <ellipse cx="149.4" cy="209" rx="3.2" ry="9.5"/>
+    <ellipse cx="169.2" cy="223" rx="2.8" ry="8.5"/>
+    <ellipse cx="13.6" cy="229" rx="3.2" ry="9"/>
+  </g>
+  <!-- Leaf blades left -->
+  <path d="M25,290 Q5,225 14,185" stroke="#082a18" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M50,330 Q32,255 48,163" stroke="#082a18" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M76,312 Q96,245 79,175" stroke="#082a18" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M102,302 Q122,238 104,165" stroke="#082a18" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Low vegetation left -->
+  <path d="M0,456 Q32,412 65,436 Q95,408 132,430 Q165,412 198,440 L200,456 Z" fill="#062018"/>
+
+  <!-- Reed stems + cattails (right – mirror) -->
+  <g fill="#062018">
+    <rect x="1172.5" y="185" width="4.5" height="270" rx="2"/>
+    <rect x="1146" y="162" width="4" height="293" rx="2"/>
+    <rect x="1120" y="175" width="4" height="280" rx="2"/>
+    <rect x="1094.5" y="165" width="3.5" height="290" rx="1.8"/>
+    <rect x="1071" y="192" width="3" height="263" rx="1.5"/>
+    <rect x="1049.2" y="208" width="2.8" height="247" rx="1.4"/>
+    <rect x="1029.5" y="222" width="2.5" height="233" rx="1.2"/>
+    <rect x="1184.8" y="228" width="3.2" height="227" rx="1.5"/>
+
+    <ellipse cx="1174.8" cy="186" rx="5.5" ry="14"/>
+    <ellipse cx="1148" cy="163" rx="5" ry="13"/>
+    <ellipse cx="1122" cy="176" rx="4.8" ry="13"/>
+    <ellipse cx="1096.2" cy="166" rx="4.2" ry="11.5"/>
+    <ellipse cx="1072.5" cy="193" rx="3.8" ry="10"/>
+    <ellipse cx="1050.6" cy="209" rx="3.2" ry="9.5"/>
+    <ellipse cx="1030.8" cy="223" rx="2.8" ry="8.5"/>
+    <ellipse cx="1186.4" cy="229" rx="3.2" ry="9"/>
+  </g>
+  <path d="M1175,290 Q1195,225 1186,185" stroke="#082a18" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M1150,330 Q1168,255 1152,163" stroke="#082a18" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M1124,312 Q1104,245 1121,175" stroke="#082a18" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M1098,302 Q1078,238 1096,165" stroke="#082a18" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M1200,456 Q1168,412 1135,436 Q1105,408 1068,430 Q1035,412 1002,440 L1000,456 Z" fill="#062018"/>
+
+  <!-- Bird silhouettes (herons in flight) -->
+  <!-- Bird 1: main, center -->
+  <g transform="translate(490, 175)">
+    <path d="M-6,-1 C-30,-10 -65,-6 -80,5 C-65,4 -35,2 -6,3 Z" fill="#0a0808"/>
+    <path d="M6,-1 C30,-10 65,-6 80,5 C65,4 35,2 6,3 Z" fill="#0a0808"/>
+    <ellipse cx="0" cy="1" rx="9" ry="3.5" fill="#0a0808"/>
+    <path d="M-3,-1 C-5,-10 -3,-18 0,-20 C2,-20 3,-18 2,-1 Z" fill="#0a0808"/>
+    <circle cx="0" cy="-22" r="3.5" fill="#0a0808"/>
+    <line x1="0" y1="-22" x2="14" y2="-28" stroke="#0a0808" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="5" y1="4" x2="16" y2="20" stroke="#0a0808" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="9" y1="4" x2="21" y2="20" stroke="#0a0808" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+  <!-- Bird 2: medium, right -->
+  <g transform="translate(728, 142) scale(0.68)">
+    <path d="M-6,-1 C-30,-10 -65,-6 -80,5 C-65,4 -35,2 -6,3 Z" fill="#0c0a0a"/>
+    <path d="M6,-1 C30,-10 65,-6 80,5 C65,4 35,2 6,3 Z" fill="#0c0a0a"/>
+    <ellipse cx="0" cy="1" rx="9" ry="3.5" fill="#0c0a0a"/>
+    <path d="M-3,-1 C-5,-10 -3,-18 0,-20 C2,-20 3,-18 2,-1 Z" fill="#0c0a0a"/>
+    <circle cx="0" cy="-22" r="3.5" fill="#0c0a0a"/>
+    <line x1="0" y1="-22" x2="14" y2="-28" stroke="#0c0a0a" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="5" y1="4" x2="16" y2="22" stroke="#0c0a0a" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="9" y1="4" x2="22" y2="22" stroke="#0c0a0a" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+  <!-- Bird 3: small, left mid -->
+  <g transform="translate(318, 155) scale(0.5)">
+    <path d="M-6,-1 C-30,-10 -65,-6 -80,5 C-65,4 -35,2 -6,3 Z" fill="#1a1010"/>
+    <path d="M6,-1 C30,-10 65,-6 80,5 C65,4 35,2 6,3 Z" fill="#1a1010"/>
+    <ellipse cx="0" cy="1" rx="9" ry="3.5" fill="#1a1010"/>
+    <path d="M-3,-1 C-5,-10 -3,-18 0,-20 C2,-20 3,-18 2,-1 Z" fill="#1a1010"/>
+    <circle cx="0" cy="-22" r="3.5" fill="#1a1010"/>
+    <line x1="0" y1="-22" x2="14" y2="-28" stroke="#1a1010" stroke-width="1.8" stroke-linecap="round"/>
+  </g>
+  <!-- Bird 4: tiny, background -->
+  <g transform="translate(618, 128) scale(0.38)">
+    <path d="M-6,-1 C-30,-10 -65,-6 -80,5 C-65,4 -35,2 -6,3 Z" fill="#1e1515"/>
+    <path d="M6,-1 C30,-10 65,-6 80,5 C65,4 35,2 6,3 Z" fill="#1e1515"/>
+    <ellipse cx="0" cy="1" rx="9" ry="3.5" fill="#1e1515"/>
+  </g>
+
+  <!-- Bottom land/bank -->
+  <path d="M0,446 Q200,430 400,442 Q600,428 800,440 Q1000,428 1200,440 L1200,456 L0,456 Z" fill="#062018"/>
+
+  <!-- Text panel -->
+  <rect x="0" y="455" width="1200" height="220" fill="url(#tp)"/>
+  <rect x="0" y="455" width="1200" height="3" fill="#f59e0b"/>
+  <rect x="0" y="458" width="4" height="217" fill="#d97706" opacity="0.9"/>
+
+  <text x="60" y="498" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#f59e0b" letter-spacing="3">OUTDOOR EVENT · WILDLIFE</text>
+  <text x="60" y="550" font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700" fill="white">Bird Watching</text>
+  <text x="60" y="589" font-family="Georgia, 'Times New Roman', serif" font-size="24" font-weight="400" fill="#bfdbfe">at Ranganathittu Bird Sanctuary</text>
+  <text x="60" y="626" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" fill="#fed7aa">May 10, 2026  ·  6:00 AM – 11:00 AM</text>
+  <text x="60" y="656" font-family="Arial, Helvetica, sans-serif" font-size="13.5" fill="#6a9ab5">Ranganathittu Bird Sanctuary, Mandya District  ·  130 km from Bengaluru</text>
+</svg>

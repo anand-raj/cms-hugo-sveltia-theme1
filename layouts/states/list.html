@@ -1,0 +1,125 @@
+{{ define "main" }}
+
+{{/* ── Resolve the state data entry for this taxonomy term ─────────────────── */}}
+{{ $stateSlug := .Page.Title | urlize }}
+{{ $stateMeta := dict }}
+{{ range hugo.Data.states }}
+  {{ if eq .slug $stateSlug }}{{ $stateMeta = . }}{{ end }}
+{{ end }}
+
+<div class="list-hero">
+  <div class="list-hero-inner">
+    <h1 class="list-hero-title">{{ .Title }} Chapter</h1>
+    {{ with $stateMeta.description }}
+      <p class="list-hero-desc">{{ . }}</p>
+    {{ else }}
+      <p class="list-hero-desc">Articles, news, and events from the {{ .Title }} state chapter.</p>
+    {{ end }}
+  </div>
+</div>
+
+<div class="content-wrap content-wrap--wide">
+
+{{/* ── Show all content tagged with this state — no approval gate needed ── */}}
+{{ $approved := .Pages }}
+{{ $articles := where $approved "Section" "articles" }}
+{{ $news     := where $approved "Section" "news" }}
+{{ $events   := where $approved "Section" "events" }}
+
+{{ if not $approved }}
+  <p class="no-posts">No approved content for this state chapter yet.</p>
+{{ else }}
+
+  {{/* ── Articles ─────────────────────────────────────────────────────────── */}}
+  {{ if $articles }}
+  <section class="state-chapter-section">
+    <div class="state-chapter-section-header">
+      <h2>Articles</h2>
+      <a class="state-chapter-section-more" href="{{ site.BaseURL }}articles/">All Articles →</a>
+    </div>
+    <div class="state-chapter-grid">
+      {{ range $articles }}
+      {{ $p := . }}
+      <article class="post-card">
+        {{ with .Params.image }}
+          {{ partial "post-image.html" (dict "page" $p "src" . "width" "600" "alt" $p.Title "class" "post-card-image-link" "href" $p.RelPermalink "loading" "lazy") }}
+        {{ end }}
+        <div class="post-card-body">
+          <div class="state-chapter-type-badge">Article</div>
+          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          {{ with .Description }}<p class="post-card-desc">{{ . }}</p>{{ end }}
+          <div class="card-byline">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+            {{ with .Params.author }} · <span>{{ . }}</span>{{ end }}
+          </div>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  {{/* ── News ────────────────────────────────────────────────────────────── */}}
+  {{ if $news }}
+  <section class="state-chapter-section">
+    <div class="state-chapter-section-header">
+      <h2>News</h2>
+      <a class="state-chapter-section-more" href="{{ site.BaseURL }}news/">All News →</a>
+    </div>
+    <div class="state-chapter-grid">
+      {{ range $news }}
+      {{ $p := . }}
+      <article class="post-card">
+        {{ with .Params.image }}
+          {{ partial "post-image.html" (dict "page" $p "src" . "width" "600" "alt" $p.Title "class" "post-card-image-link" "href" $p.RelPermalink "loading" "lazy") }}
+        {{ end }}
+        <div class="post-card-body">
+          <div class="state-chapter-type-badge state-chapter-type-badge--news">News</div>
+          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          {{ with .Description }}<p class="post-card-desc">{{ . }}</p>{{ end }}
+          <div class="card-byline">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+            {{ with .Params.author }} · <span>{{ . }}</span>{{ end }}
+          </div>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  {{/* ── Events ───────────────────────────────────────────────────────────── */}}
+  {{ if $events }}
+  <section class="state-chapter-section">
+    <div class="state-chapter-section-header">
+      <h2>Events</h2>
+      <a class="state-chapter-section-more" href="{{ site.BaseURL }}events/">All Events →</a>
+    </div>
+    <div class="state-chapter-grid">
+      {{ range $events }}
+      {{ $p := . }}
+      <article class="post-card">
+        {{ with .Params.image }}
+          {{ partial "post-image.html" (dict "page" $p "src" . "width" "600" "alt" $p.Title "class" "post-card-image-link" "href" $p.RelPermalink "loading" "lazy") }}
+        {{ end }}
+        <div class="post-card-body">
+          <div class="state-chapter-type-badge state-chapter-type-badge--event">Event</div>
+          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          {{ with .Params.event_date }}
+          <div class="event-meta-inline">
+            <time datetime="{{ dateFormat "2006-01-02" . }}">{{ dateFormat "Monday, January 2, 2006" . }}</time>
+            {{ with $p.Params.event_location }} · <span>{{ . }}</span>{{ end }}
+          </div>
+          {{ end }}
+          {{ with .Description }}<p class="post-card-desc">{{ . }}</p>{{ end }}
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+{{ end }}{{/* end if $approved */}}
+</div>
+
+{{ end }}

@@ -1,0 +1,70 @@
+# ── Display: Articles ─────────────────────────────────────────────────────────
+articles_show_categories: false
+articles_show_tags:       false
+articles_show_author:     false
+articles_show_date:       false
+articles_show_updated:    false
+articles_show_read_time:  false
+articles_show_hero_image: true
+articles_show_description: true
+articles_show_prev_next:  true
+
+# ── Display: News ─────────────────────────────────────────────────────────────
+news_show_categories:  true
+news_show_tags:        false
+news_show_author:      true
+news_show_date:        true
+news_show_updated:     false
+news_show_hero_image:  true
+news_show_description: true
+news_show_prev_next:   true
+
+# ── Display: Events ───────────────────────────────────────────────────────────
+events_show_categories:  false
+events_show_tags:        false
+events_show_author:      true
+events_show_date:        false
+events_show_event_meta:  true
+events_show_hero_image:  true
+events_show_description: true
+events_show_prev_next:   false
+events_worker_url:       "https://cms-events.e-anandraj.workers.dev"
+
+# ── Fonts (Google Fonts family names) ─────────────────────────────────────────
+body_font: "Inter"
+heading_font: "Inter"
+
+# ── Colours ───────────────────────────────────────────────────────────────────
+color_primary: "#1a3a4a"
+color_accent:  "#c0392b"
+color_text:    "#1a2a35"
+color_bg:      "#f8fcff"
+color_surface: "#eef7fd"
+color_border:  "#d0eaf6"
+color_muted:   "#3a6a80"
+color_subtle:  "#c98888"
+color_pre_bg:  "#0d2030"
+
+# ── Saved Themes ──────────────────────────────────────────────────────────────
+
+# Theme 8 — Arctic Frost + Editorial Red
+# color_primary: "#1a3a4a"
+# color_accent:  "#c0392b"
+# color_text:    "#1a2a35"
+# color_bg:      "#f8fcff"
+# color_surface: "#eef7fd"
+# color_border:  "#d0eaf6"
+# color_muted:   "#3a6a80"
+# color_subtle:  "#c98888"
+# color_pre_bg:  "#0d2030"
+
+# Theme 7 — Warm Newspaper (tweaked)
+# color_primary: "#2b2118"
+# color_accent:  "#c0392b"
+# color_text:    "#3d2b1f"
+# color_bg:      "#fffdf7"
+# color_surface: "#fffbf0"
+# color_border:  "#e0d0b0"
+# color_muted:   "#7a5c3a"
+# color_subtle:  "#b09070"
+# color_pre_bg:  "#1a1008"

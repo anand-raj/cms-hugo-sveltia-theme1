@@ -1,0 +1,12 @@
+- name: Karnataka
+  slug: karnataka
+  description: "News, events, and articles from the Karnataka state chapter."
+
+# Add more state chapters here as their content repos are connected:
+# - name: Tamil Nadu
+#   slug: tamil-nadu
+#   description: "News, events, and articles from the Tamil Nadu state chapter."
+#
+# - name: Kerala
+#   slug: kerala
+#   description: "News, events, and articles from the Kerala state chapter."

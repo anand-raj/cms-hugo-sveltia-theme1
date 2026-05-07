@@ -1,0 +1,87 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}</title>
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+
+{{/* Hugo Pipes: SCSS → transpile → minify → fingerprint */}}
+{{ $opts := dict "targetPath" "css/main.css" "enableSourceMap" (not hugo.IsProduction) }}
+{{ $style := resources.Get "scss/main.scss" | toCSS $opts | minify | fingerprint }}
+<link rel="stylesheet"
+      href="{{ $style.RelPermalink }}"
+      integrity="{{ $style.Data.Integrity }}"
+      crossorigin="anonymous">
+
+{{/* ── Site Settings: fonts + CSS custom properties ── */}}
+{{ $s := hugo.Data.settings }}
+{{ $bodyFont    := default "Inter" $s.body_font }}
+{{ $headingFont := default "Inter" $s.heading_font }}
+{{ $primary     := default "#1a1a2e" $s.color_primary }}
+{{ $accent      := default "#e94560" $s.color_accent }}
+{{ $textColor   := default "#333333" $s.color_text }}
+{{ $bg          := default "#ffffff" $s.color_bg }}
+{{ $surface     := default "#f1f5f9" $s.color_surface }}
+{{ $border      := default "#e2e8f0" $s.color_border }}
+{{ $muted       := default "#64748b" $s.color_muted }}
+{{ $subtle      := default "#94a3b8" $s.color_subtle }}
+{{ $preBg       := default "#1e293b" $s.color_pre_bg }}
+
+{{/* Load Google Fonts only when a non-system font is chosen */}}
+{{ $systemFonts := slice "system-ui" "sans-serif" "serif" "monospace" }}
+{{ if or (not (in $systemFonts $bodyFont)) (not (in $systemFonts $headingFont)) }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family={{ $bodyFont | urlize | replaceRE "-" "+" }}:wght@400;600&family={{ $headingFont | urlize | replaceRE "-" "+" }}:wght@700&display=swap" rel="stylesheet">
+{{ end }}
+
+<style>
+:root {
+  --font-body:     '{{ $bodyFont }}', system-ui, sans-serif;
+  --font-heading:  '{{ $headingFont }}', system-ui, sans-serif;
+  --color-primary: {{ $primary }};
+  --color-accent:  {{ $accent }};
+  --color-text:    {{ $textColor }};
+  --color-bg:      {{ $bg }};
+  --color-surface: {{ $surface }};
+  --color-border:  {{ $border }};
+  --color-muted:   {{ $muted }};
+  --color-subtle:  {{ $subtle }};
+  --color-pre-bg:  {{ $preBg }};
+}
+</style>
+
+{{/* Per-page Google Font (article-level override) */}}
+{{ with .Params.extra_font }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="{{ . }}" rel="stylesheet">
+{{ end }}
+
+{{/* Hugo internal SEO templates */}}
+{{ template "_internal/opengraph.html" . }}
+{{ template "_internal/twitter_cards.html" . }}
+
+{{/* og:image fallback: internal opengraph reads .Params.images (slice);
+     existing content uses .Params.image (string) — bridge the gap. */}}
+{{ if and .IsPage (not .Params.images) .Params.image }}
+  {{ $src := .Params.image }}
+  {{ if hasPrefix $src "http" }}
+    <meta property="og:image" content="{{ $src }}">
+  {{ else }}
+    {{ $isSVG := strings.HasSuffix (lower $src) ".svg" }}
+    {{ if $isSVG }}
+      {{ with .Resources.GetMatch $src }}
+        <meta property="og:image" content="{{ .Permalink }}">
+      {{ end }}
+    {{ else }}
+      {{ with .Resources.GetMatch $src }}
+        {{ $img := .Resize "1200x630 webp" }}
+        <meta property="og:image" content="{{ $img.Permalink }}">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* JSON-LD structured data */}}
+{{ partial "jsonld.html" . }}

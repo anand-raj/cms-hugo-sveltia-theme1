@@ -1,0 +1,31 @@
+{{/*
+  Partial: is-approved-chapter.html
+  Outputs "true" if a page should appear on the state chapter page
+  (/states/<slug>/). Checks both tiers in approved.yml:
+    - featured: also appears on global pages
+    - chapter:  appears ONLY on the state chapter page
+
+  Usage: {{ if partial "is-approved-chapter.html" . }} ... {{ end }}
+*/}}
+{{- $page := . -}}
+{{- $isState := or $page.Params.states $page.Params.section -}}
+{{- if not $isState -}}
+{{- /* Non-state content never appears on a state chapter page */ -}}
+{{- else -}}
+  {{- $stateSlug := "" -}}
+  {{- with $page.Params.states -}}
+    {{- $stateSlug = index . 0 | urlize -}}
+  {{- else -}}
+    {{- $stateSlug = $page.Params.section | urlize -}}
+  {{- end -}}
+  {{- $section   := $page.Section -}}
+  {{- $slug      := $page.File.Dir | path.Base -}}
+  {{- $stateData := index hugo.Data.approved $stateSlug -}}
+  {{- $chapterList  := slice -}}
+  {{- $featuredList := slice -}}
+  {{- with $stateData -}}
+    {{- with .chapter  -}}{{- $chapterList  = index . $section | default slice -}}{{- end -}}
+    {{- with .featured -}}{{- $featuredList = index . $section | default slice -}}{{- end -}}
+  {{- end -}}
+  {{- if or (in $chapterList $slug) (in $featuredList $slug) -}}true{{- end -}}
+{{- end -}}

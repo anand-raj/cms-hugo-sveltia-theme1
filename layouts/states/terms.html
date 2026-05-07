@@ -1,0 +1,22 @@
+{{ define "main" }}
+
+<div class="list-hero">
+  <div class="list-hero-inner">
+    <h1 class="list-hero-title">State Chapters</h1>
+    <p class="list-hero-desc">Explore articles, news, and events from our regional chapters across India.</p>
+  </div>
+</div>
+
+<div class="content-wrap">
+  <div class="state-chapters-index">
+    {{ range hugo.Data.states }}
+    {{ $term := site.GetPage (printf "/states/%s" .slug) }}
+    <a class="state-chapter-card" href="{{ if $term }}{{ $term.RelPermalink }}{{ else }}/states/{{ .slug }}/{{ end }}">
+      <h2>{{ .name }}</h2>
+      {{ with .description }}<p>{{ . }}</p>{{ end }}
+    </a>
+    {{ end }}
+  </div>
+</div>
+
+{{ end }}

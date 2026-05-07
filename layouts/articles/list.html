@@ -1,0 +1,80 @@
+{{ define "main" }}
+
+{{/* ── Filter: only show state content approved in data/approved.yml ──────────── */}}
+{{ $pages := slice }}
+{{ range .Pages }}
+  {{ if partial "is-approved.html" . }}
+    {{ $pages = $pages | append . }}
+  {{ end }}
+{{ end }}
+
+<div class="list-hero">
+  <div class="list-hero-inner">
+    <h1 class="list-hero-title">{{ .Title }}</h1>
+    {{ with .Description }}<p class="list-hero-desc">{{ . }}</p>{{ end }}
+  </div>
+</div>
+
+<div class="content-wrap content-wrap--wide">
+  {{ if $pages }}
+
+  {{/* ── Featured (first) article ─────────────────────────────────────────── */}}
+  {{ $featured := index $pages 0 }}
+  <div class="list-featured" data-cats="{{ range $featured.GetTerms "categories" }}{{ .LinkTitle | urlize }} {{ end }}">
+    {{ with $featured.Params.image }}
+    <a class="list-featured-img" href="{{ $featured.RelPermalink }}">
+      {{ partial "post-image.html" (dict "page" $featured "src" . "width" "900" "alt" $featured.Title "loading" "eager") }}
+    </a>
+    {{ end }}
+    <div class="list-featured-body">
+      {{ with $featured.GetTerms "categories" }}
+      <div class="card-meta">
+        {{ range . }}<a class="card-category" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+      </div>
+      {{ end }}
+      <h2><a href="{{ $featured.RelPermalink }}">{{ $featured.Title }}</a></h2>
+      {{ with $featured.Description }}<p class="list-featured-desc">{{ . }}</p>{{ end }}
+      <div class="card-byline">
+        <time datetime="{{ $featured.Date.Format "2006-01-02" }}">{{ $featured.Date.Format "January 2, 2006" }}</time>
+        {{ with $featured.Params.author }} · <span>{{ . }}</span>{{ end }}
+        · <span>{{ math.Round (div (countwords $featured.Content) 200.0) }} min read</span>
+      </div>
+      <a class="featured-post-cta" href="{{ $featured.RelPermalink }}">Read article →</a>
+    </div>
+  </div>
+
+  {{/* ── Article grid ─────────────────────────────────────────────────────── */}}
+  {{ $rest := after 1 $pages }}
+  {{ if $rest }}
+  <div class="list-grid" id="listGrid">
+    {{ range $rest }}
+    {{ $card := . }}
+    <article class="post-card list-grid-card"
+             data-cats="{{ range .GetTerms "categories" }}{{ .LinkTitle | urlize }} {{ end }}">
+      {{ with .Params.image }}
+        {{ partial "post-image.html" (dict "page" $card "src" . "width" "600" "alt" $card.Title "class" "post-card-image-link" "href" $card.RelPermalink "loading" "lazy") }}
+      {{ end }}
+      <div class="post-card-body">
+        {{ with .GetTerms "categories" }}
+        <div class="card-meta">
+          {{ range . }}<a class="card-category" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+        </div>
+        {{ end }}
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        {{ with .Description }}<p class="post-card-desc">{{ . }}</p>{{ end }}
+        <div class="card-byline">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+          {{ with .Params.author }} · <span>{{ . }}</span>{{ end }}
+        </div>
+      </div>
+    </article>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  {{ else }}
+  <p class="no-posts">No articles yet.</p>
+  {{ end }}
+</div>
+
+{{ end }}

@@ -1,0 +1,140 @@
+{{ define "main" }}
+<div class="content-wrap">
+  <div class="search-page">
+
+    <header class="search-page-header">
+      <h1 class="search-page-title">Search</h1>
+      <form class="search-form search-form--page" id="search-form" action="{{ "/search/" | relURL }}" method="get">
+        <div class="search-input-wrap">
+          <input
+            type="search"
+            name="q"
+            id="search-input"
+            placeholder="Search articles, news, events…"
+            class="search-input"
+            autocomplete="off"
+            autofocus>
+          <button type="submit" class="search-btn" aria-label="Search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+        </div>
+      </form>
+    </header>
+
+    <div id="search-status" class="search-status" aria-live="polite"></div>
+    <div id="search-results" class="search-results"></div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7/dist/fuse.min.js" defer></script>
+<script>
+(function () {
+  // relURL gives the correct subpath regardless of host/port (/index.json or /subpath/index.json)
+  // location.origin gives the correct host+port from the browser
+  const indexURL = location.origin + `{{ "index.json" | relURL }}`;
+
+  function getQuery() {
+    return new URLSearchParams(window.location.search).get("q") || "";
+  }
+
+  function sectionLabel(section) {
+    return section.charAt(0).toUpperCase() + section.slice(1);
+  }
+
+  function highlight(text, query) {
+    if (!text || !query) return text || "";
+    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return text.replace(new RegExp(`(${escaped})`, "gi"), "<mark>$1</mark>");
+  }
+
+  function renderResults(results, query) {
+    const container = document.getElementById("search-results");
+    const status    = document.getElementById("search-status");
+
+    if (!results.length) {
+      status.textContent = query
+        ? `No results found for "${query}".`
+        : "Enter a search term above.";
+      container.innerHTML = "";
+      return;
+    }
+
+    status.textContent = `${results.length} result${results.length === 1 ? "" : "s"} for "${query}"`;
+
+    container.innerHTML = results.map(({ item }) => `
+      <article class="search-result">
+        <div class="search-result-meta">
+          <span class="card-category">${sectionLabel(item.section)}</span>
+          <span class="search-result-date">${item.date}</span>
+        </div>
+        <h2 class="search-result-title">
+          <a href="${item.url}">${highlight(item.title, query)}</a>
+        </h2>
+        ${item.description
+          ? `<p class="search-result-desc">${highlight(item.description, query)}</p>`
+          : ""}
+      </article>
+    `).join("");
+  }
+
+  function initSearch(index) {
+    const fuse = new Fuse(index, {
+      keys: [
+        { name: "title",       weight: 0.6 },
+        { name: "description", weight: 0.3 },
+        { name: "content",     weight: 0.1 },
+      ],
+      includeScore: true,
+      threshold: 0.35,
+      minMatchCharLength: 2,
+    });
+
+    const input  = document.getElementById("search-input");
+    const query  = getQuery();
+
+    if (query) {
+      input.value = query;
+      renderResults(fuse.search(query), query);
+    }
+
+    // Live search as user types
+    input.addEventListener("input", function () {
+      const q = this.value.trim();
+      const results = q.length >= 2 ? fuse.search(q) : [];
+      renderResults(results, q);
+      // Update URL without reloading
+      const url = new URL(window.location);
+      if (q) { url.searchParams.set("q", q); }
+      else   { url.searchParams.delete("q"); }
+      history.replaceState({}, "", url);
+    });
+  }
+
+  window.addEventListener("DOMContentLoaded", function () {
+    fetch(indexURL)
+      .then(function (r) {
+        if (!r.ok) throw new Error("Failed to load search index");
+        return r.json();
+      })
+      .then(function (data) {
+        // Wait for Fuse to be available (loaded with defer)
+        if (typeof Fuse !== "undefined") {
+          initSearch(data);
+        } else {
+          document.querySelector("script[src*='fuse']").addEventListener("load", function () {
+            initSearch(data);
+          });
+        }
+      })
+      .catch(function (err) {
+        document.getElementById("search-status").textContent =
+          "Search unavailable. Please try again later.";
+        console.error(err);
+      });
+  });
+})();
+</script>
+{{ end }}

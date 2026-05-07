@@ -1,0 +1,35 @@
+baseURL = 'https://anand-raj.github.io/cms-hugo-sveltia/'
+languageCode = 'en-us'
+title = 'My New Hugo Project'
+
+[taxonomies]
+  tag      = "tags"
+  category = "categories"
+  state    = "states"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[params]
+  description = "A production-ready Hugo site built with best practices."
+  [params.social]
+    twitter = "yourtwitterhandle"
+    github  = "anand-raj"
+
+[[menus.main]]
+  name   = "Articles"
+  url    = "/articles/"
+  weight = 10
+
+[[menus.main]]
+  name   = "News"
+  url    = "/news/"
+  weight = 30
+
+[[menus.main]]
+  name   = "Events"
+  url    = "/events/"
+  weight = 40

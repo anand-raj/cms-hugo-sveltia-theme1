@@ -1,0 +1,71 @@
+{{ define "main" }}
+
+{{/* ── Filter: only show state content approved in data/approved.yml ──────────── */}}
+{{ $pages := slice }}
+{{ range .Pages }}
+  {{ if partial "is-approved.html" . }}
+    {{ $pages = $pages | append . }}
+  {{ end }}
+{{ end }}
+
+<div class="list-hero">
+  <div class="list-hero-inner">
+    <h1 class="list-hero-title">{{ .Title }}</h1>
+    {{ with .Description }}<p class="list-hero-desc">{{ . }}</p>{{ end }}
+  </div>
+</div>
+
+<div class="content-wrap content-wrap--wide">
+  {{ if $pages }}
+
+  {{/* ── Lead story ──────────────────────────────────────────────────────── */}}
+  {{ $lead := index $pages 0 }}
+  <div class="news-lead">
+    {{ with $lead.Params.image }}
+    <a class="news-lead-img" href="{{ $lead.RelPermalink }}">
+      {{ partial "post-image.html" (dict "page" $lead "src" . "width" "900" "alt" $lead.Title "loading" "eager") }}
+    </a>
+    {{ end }}
+    <div class="news-lead-body">
+      <div class="news-label">Lead Story</div>
+      <h2 class="news-lead-title"><a href="{{ $lead.RelPermalink }}">{{ $lead.Title }}</a></h2>
+      {{ with $lead.Description }}<p class="news-lead-desc">{{ . }}</p>{{ end }}
+      <div class="card-byline">
+        <time datetime="{{ $lead.Date.Format "2006-01-02" }}">{{ $lead.Date.Format "January 2, 2006" }}</time>
+        {{ with $lead.Params.author }} · <span>{{ . }}</span>{{ end }}
+      </div>
+      <a class="news-lead-cta" href="{{ $lead.RelPermalink }}">Read story →</a>
+    </div>
+  </div>
+
+  {{/* ── News list ────────────────────────────────────────────────────────── */}}
+  {{ $rest := after 1 $pages }}
+  {{ if $rest }}
+  <div class="news-list">
+    {{ range $rest }}
+    {{ $p := . }}
+    <article class="news-item">
+      {{ with .Params.image }}
+      <a class="news-item-img" href="{{ $p.RelPermalink }}">
+        {{ partial "post-image.html" (dict "page" $p "src" . "width" "300" "alt" $p.Title "loading" "lazy") }}
+      </a>
+      {{ end }}
+      <div class="news-item-body">
+        <h3 class="news-item-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        {{ with .Description }}<p class="news-item-desc">{{ . }}</p>{{ end }}
+        <div class="card-byline">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+          {{ with .Params.author }} · <span>{{ . }}</span>{{ end }}
+        </div>
+      </div>
+    </article>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  {{ else }}
+  <p class="no-posts">No news yet.</p>
+  {{ end }}
+</div>
+
+{{ end }}

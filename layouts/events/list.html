@@ -1,0 +1,133 @@
+{{ define "main" }}
+
+{{/* ── Filter: only show state content approved in data/approved.yml ──────────── */}}
+{{ $pages := slice }}
+{{ range .Pages }}
+  {{ if partial "is-approved.html" . }}
+    {{ $pages = $pages | append . }}
+  {{ end }}
+{{ end }}
+
+<div class="list-hero">
+  <div class="list-hero-inner">
+    <h1 class="list-hero-title">{{ .Title }}</h1>
+    {{ with .Description }}<p class="list-hero-desc">{{ . }}</p>{{ end }}
+  </div>
+</div>
+
+<div class="content-wrap content-wrap--wide">
+  {{ if $pages }}
+
+  {{ $now := now }}
+
+  {{/* ── Split into upcoming / past ─────────────────────────────────────── */}}
+  {{ $upcoming := slice }}
+  {{ $past     := slice }}
+  {{ range $pages }}
+    {{ $evDate := .Date }}
+    {{ with .Params.event_date }}
+      {{ $evDate = (time .) }}
+    {{ end }}
+    {{ if $evDate.After $now }}
+      {{ $upcoming = $upcoming | append . }}
+    {{ else }}
+      {{ $past = $past | append . }}
+    {{ end }}
+  {{ end }}
+
+  {{/* ── Upcoming events ─────────────────────────────────────────────────── */}}
+  {{ if $upcoming }}
+  <div class="events-section-header">
+    <span class="events-section-label">Upcoming</span>
+  </div>
+  <div class="events-grid">
+    {{ range $upcoming }}
+    {{ $ev := . }}
+    {{ $evDate := $ev.Date }}
+    {{ with $ev.Params.event_date }}{{ $evDate = (time .) }}{{ end }}
+    <article class="event-card">
+      <div class="event-card-img-wrap">
+        {{ with $ev.Params.image }}
+          {{ partial "post-image.html" (dict "page" $ev "src" . "width" "600" "alt" $ev.Title "loading" "lazy") }}
+        {{ end }}
+        <div class="event-card-date-badge">
+          <span class="event-card-date-day">{{ $evDate.Format "02" }}</span>
+          <span class="event-card-date-month">{{ $evDate.Format "Jan" }}</span>
+        </div>
+      </div>
+      <div class="event-card-body">
+        <h3 class="event-card-title"><a href="{{ $ev.RelPermalink }}">{{ $ev.Title }}</a></h3>
+        {{ with $ev.Params.event_location }}
+        <div class="event-card-location">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>{{ . }}</span>
+        </div>
+        {{ end }}
+        {{ with $ev.Description }}<p class="event-card-desc">{{ . }}</p>{{ end }}
+        <div class="event-card-footer">
+          <time class="event-card-time" datetime="{{ $evDate.Format "2006-01-02" }}">
+            {{ $evDate.Format "Mon, Jan 2 · 3:04 PM" }}
+          </time>
+          {{ if $ev.Params.registration_url }}
+          <a class="event-card-cta" href="{{ $ev.RelPermalink }}#event-register">Register →</a>
+          {{ else }}
+          <a class="event-card-cta event-card-cta--secondary" href="{{ $ev.RelPermalink }}">Learn more →</a>
+          {{ end }}
+        </div>
+      </div>
+    </article>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  {{/* ── Past events ──────────────────────────────────────────────────────── */}}
+  {{ if $past }}
+  <div class="events-section-header events-section-header--past">
+    <span class="events-section-label">Past Events</span>
+  </div>
+  <div class="events-grid events-grid--past">
+    {{ range $past }}
+    {{ $ev := . }}
+    {{ $evDate := $ev.Date }}
+    {{ with $ev.Params.event_date }}{{ $evDate = (time .) }}{{ end }}
+    <article class="event-card event-card--past">
+      <div class="event-card-img-wrap">
+        {{ with $ev.Params.image }}
+          {{ partial "post-image.html" (dict "page" $ev "src" . "width" "600" "alt" $ev.Title "loading" "lazy") }}
+        {{ end }}
+        <div class="event-card-date-badge">
+          <span class="event-card-date-day">{{ $evDate.Format "02" }}</span>
+          <span class="event-card-date-month">{{ $evDate.Format "Jan" }}</span>
+        </div>
+      </div>
+      <div class="event-card-body">
+        <h3 class="event-card-title"><a href="{{ $ev.RelPermalink }}">{{ $ev.Title }}</a></h3>
+        {{ with $ev.Params.event_location }}
+        <div class="event-card-location">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>{{ . }}</span>
+        </div>
+        {{ end }}
+        {{ with $ev.Description }}<p class="event-card-desc">{{ . }}</p>{{ end }}
+        <div class="event-card-footer">
+          <time class="event-card-time" datetime="{{ $evDate.Format "2006-01-02" }}">
+            {{ $evDate.Format "Mon, Jan 2, 2006" }}
+          </time>
+          <a class="event-card-cta event-card-cta--secondary" href="{{ $ev.RelPermalink }}">View →</a>
+        </div>
+      </div>
+    </article>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  {{ if not (or $upcoming $past) }}
+  <p class="no-posts">No events yet.</p>
+  {{ end }}
+
+  {{ else }}
+  <p class="no-posts">No events yet.</p>
+  {{ end }}
+</div>
+
+{{ end }}

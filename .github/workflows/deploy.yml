@@ -1,0 +1,72 @@
+name: Deploy Hugo to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  # Triggered by state content repos when editors publish content
+  repository_dispatch:
+    types: [state-content-updated]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Fetch state content — Karnataka
+        run: |
+          git clone --depth=1 https://github.com/anand-raj/cms-content-karnataka.git /tmp/karnataka
+          [ -d /tmp/karnataka/content/articles ] && cp -r /tmp/karnataka/content/articles/. content/articles/ || true
+          [ -d /tmp/karnataka/content/events ]   && cp -r /tmp/karnataka/content/events/.   content/events/   || true
+          [ -d /tmp/karnataka/content/news ]     && cp -r /tmp/karnataka/content/news/.     content/news/     || true
+
+      # Add more states here following the same pattern, e.g.:
+      # - name: Fetch state content — Tamil Nadu
+      #   run: |
+      #     git clone --depth=1 https://github.com/anand-raj/cms-content-tamilnadu.git /tmp/tamilnadu
+      #     [ -d /tmp/tamilnadu/content/articles ] && cp -r /tmp/tamilnadu/content/articles/. content/articles/ || true
+      #     [ -d /tmp/tamilnadu/content/events ]   && cp -r /tmp/tamilnadu/content/events/.   content/events/   || true
+      #     [ -d /tmp/tamilnadu/content/news ]     && cp -r /tmp/tamilnadu/content/news/.     content/news/     || true
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build
+        run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+

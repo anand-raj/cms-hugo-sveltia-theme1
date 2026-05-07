@@ -1,0 +1,96 @@
+<header class="site-header" id="siteHeader">
+  <nav class="site-nav">
+    <a class="site-title" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      {{ with site.Menus.main }}
+        {{ range . }}
+        <li><a href="{{ .URL }}"{{ if $.IsMenuCurrent "main" . }} aria-current="page"{{ end }}>{{ .Name }}</a></li>
+        {{ end }}
+      {{ end }}
+      {{/* ── State Chapters dropdown ─────────────────────────────────────── */}}
+      {{ if hugo.Data.states }}
+      <li class="nav-dropdown">
+        <button class="nav-dropdown-btn" aria-expanded="false" aria-haspopup="true">
+          State Chapters
+          <svg class="nav-dropdown-caret" aria-hidden="true" width="10" height="6" viewBox="0 0 10 6" fill="currentColor">
+            <path d="M0 0l5 6 5-6z"/>
+          </svg>
+        </button>
+        <ul class="nav-dropdown-menu" role="menu">
+          {{ range hugo.Data.states }}
+          <li role="none">
+            <a href="{{ site.BaseURL }}states/{{ .slug }}/" role="menuitem">{{ .name }}</a>
+          </li>
+          {{ end }}
+          <li role="none" class="nav-dropdown-divider"></li>
+          <li role="none">
+            <a href="{{ site.BaseURL }}states/" role="menuitem" class="nav-dropdown-all">All State Chapters</a>
+          </li>
+        </ul>
+      </li>
+      {{ end }}
+    </ul>
+  </nav>
+</header>
+<script>
+  (function () {
+    var btn = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav-links');
+    btn.addEventListener('click', function () {
+      var open = menu.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open);
+    });
+
+    // ── State Chapters dropdown ──────────────────────────────────────────────
+    var dropdownBtns = document.querySelectorAll('.nav-dropdown-btn');
+    dropdownBtns.forEach(function (dropBtn) {
+      var dropMenu = dropBtn.nextElementSibling;
+
+      // Toggle on button click (keyboard + touch friendly)
+      dropBtn.addEventListener('click', function (e) {
+        var open = dropBtn.getAttribute('aria-expanded') === 'true';
+        // Close all other dropdowns first
+        dropdownBtns.forEach(function (other) {
+          if (other !== dropBtn) {
+            other.setAttribute('aria-expanded', 'false');
+            other.nextElementSibling.classList.remove('is-open');
+          }
+        });
+        dropBtn.setAttribute('aria-expanded', String(!open));
+        dropMenu.classList.toggle('is-open', !open);
+      });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.nav-dropdown')) {
+        dropdownBtns.forEach(function (b) {
+          b.setAttribute('aria-expanded', 'false');
+          b.nextElementSibling.classList.remove('is-open');
+        });
+      }
+    });
+
+    // Close dropdown on Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        dropdownBtns.forEach(function (b) {
+          b.setAttribute('aria-expanded', 'false');
+          b.nextElementSibling.classList.remove('is-open');
+          b.focus();
+        });
+      }
+    });
+
+    // Set real header height as CSS variable so sticky offsets are exact
+    function setHeaderHeight() {
+      var h = document.getElementById('siteHeader').offsetHeight;
+      document.documentElement.style.setProperty('--header-h', h + 'px');
+    }
+    setHeaderHeight();
+    window.addEventListener('resize', setHeaderHeight);
+  })();
+</script>

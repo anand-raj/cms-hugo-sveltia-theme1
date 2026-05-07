@@ -1,0 +1,411 @@
+backend:
+  name: github
+  repo: anand-raj/cms-hugo-sveltia
+  branch: main
+  base_url: https://sveltia-cms-auth.e-anandraj.workers.dev
+
+# Store media in the page bundle alongside content
+media_folder: content/articles
+public_folder: /articles
+
+site_url: https://anand-raj.github.io/cms-hugo-sveltia/
+
+collections:
+  - name: articles
+    label: Articles
+    folder: content/articles
+    create: true
+    path: "{{slug}}/index"
+    media_folder: images
+    public_folder: images
+    preview_path: articles/{{slug}}/
+    fields:
+      - label: Title
+        name: title
+        widget: string
+
+      - label: Publish Date
+        name: date
+        widget: datetime
+        format: "YYYY-MM-DDTHH:mm:ssZ"
+
+      - label: Last Modified
+        name: lastmod
+        widget: datetime
+        format: "YYYY-MM-DDTHH:mm:ssZ"
+
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: true
+
+      - label: Description
+        name: description
+        widget: text
+        required: false
+
+      - label: Author
+        name: author
+        widget: string
+        default: Admin
+
+      - label: Categories
+        name: categories
+        widget: list
+        default: ["Tech"]
+
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+        hint: "Add 'state-chapter' to publish this article in the State Chapters section."
+
+      - label: State Chapter
+        name: states
+        widget: select
+        multiple: true
+        required: false
+        hint: "Select the state this content belongs to (set by state chapter editors)."
+        options:
+          - { label: "Karnataka", value: "karnataka" }
+
+      - label: Hero Image
+        name: image
+        widget: image
+        required: false
+        hint: "Use an Unsplash URL (https://images.unsplash.com/photo-ID?w=1200&fm=webp&q=80) or upload a file to the page bundle."
+
+      - label: Image Caption
+        name: image_caption
+        widget: string
+        required: false
+        hint: "e.g. Photo by [Name](https://unsplash.com/@handle) on [Unsplash](https://unsplash.com)"
+
+      - label: Table of Contents
+        name: toc
+        widget: boolean
+        default: true
+
+      - label: Comments
+        name: comments
+        widget: boolean
+        default: true
+
+      - label: Body
+        name: body
+        widget: markdown
+
+  - name: news
+    label: News
+    folder: content/news
+    create: true
+    path: "{{slug}}/index"
+    media_folder: images
+    public_folder: images
+    preview_path: news/{{slug}}/
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+        format: "YYYY-MM-DDTHH:mm:ssZ"
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: true
+      - label: Description
+        name: description
+        widget: text
+        required: false
+      - label: Author
+        name: author
+        widget: string
+        default: Admin
+      - label: Categories
+        name: categories
+        widget: list
+        default: ["News"]
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+        hint: "Add 'state-chapter' to publish this news item in the State Chapters section."
+      - label: State Chapter
+        name: states
+        widget: select
+        multiple: true
+        required: false
+        hint: "Select the state this content belongs to."
+        options:
+          - { label: "Karnataka", value: "karnataka" }
+      - label: Hero Image
+        name: image
+        widget: image
+        required: false
+      - label: Body
+        name: body
+        widget: markdown
+
+  - name: events
+    label: Events
+    folder: content/events
+    create: true
+    path: "{{slug}}/index"
+    media_folder: images
+    public_folder: images
+    preview_path: events/{{slug}}/
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+        format: "YYYY-MM-DDTHH:mm:ssZ"
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: true
+      - label: Description
+        name: description
+        widget: text
+        required: false
+      - label: Event Date
+        name: event_date
+        widget: datetime
+        format: "YYYY-MM-DDTHH:mm:ssZ"
+      - label: Event End Date
+        name: event_end_date
+        widget: datetime
+        format: "YYYY-MM-DDTHH:mm:ssZ"
+        required: false
+      - label: Location
+        name: event_location
+        widget: string
+        required: false
+      - label: Event URL
+        name: event_url
+        widget: string
+        required: false
+      - label: Registration URL
+        name: registration_url
+        widget: string
+        required: false
+      - label: Categories
+        name: categories
+        widget: list
+        default: ["Event"]
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+        hint: "Add 'state-chapter' to publish this event in the State Chapters section."
+      - label: State Chapter
+        name: states
+        widget: select
+        multiple: true
+        required: false
+        hint: "Select the state this content belongs to."
+        options:
+          - { label: "Karnataka", value: "karnataka" }
+      - label: Hero Image
+        name: image
+        widget: image
+        required: false
+      - label: Body
+        name: body
+        widget: markdown
+
+  - name: approvals
+    label: "State Chapter Approvals"
+    description: "Control which state chapter content appears on the global homepage and articles/news/events pages. State chapter pages always show all state content."
+    files:
+      - name: approved
+        label: Approved Content
+        file: data/approved.yml
+        fields:
+          - label: Karnataka
+            name: karnataka
+            widget: object
+            hint: "Slugs listed here appear on the Karnataka chapter page AND on the global homepage/articles/news/events pages."
+            fields:
+              - label: Articles
+                name: articles
+                widget: list
+                field: { label: Article Slug, name: slug, widget: string }
+                hint: "Slug = folder name under content/articles/"
+              - label: News
+                name: news
+                widget: list
+                field: { label: News Slug, name: slug, widget: string }
+                hint: "Slug = folder name under content/news/"
+              - label: Events
+                name: events
+                widget: list
+                field: { label: Event Slug, name: slug, widget: string }
+                hint: "Slug = folder name under content/events/"
+
+  - name: settings
+    label: Site Settings
+    files:
+      - name: general
+        label: General Settings
+        file: data/settings.yml
+        fields:
+          # ── Display: Articles ─────────────────────────────────────────────
+          - label: "[Articles] Show Categories"
+            name: articles_show_categories
+            widget: boolean
+            default: true
+          - label: "[Articles] Show Tags"
+            name: articles_show_tags
+            widget: boolean
+            default: true
+          - label: "[Articles] Show Author"
+            name: articles_show_author
+            widget: boolean
+            default: true
+          - label: "[Articles] Show Date"
+            name: articles_show_date
+            widget: boolean
+            default: true
+          - label: "[Articles] Show Updated Date"
+            name: articles_show_updated
+            widget: boolean
+            default: true
+          - label: "[Articles] Show Read Time"
+            name: articles_show_read_time
+            widget: boolean
+            default: true
+          - label: "[Articles] Show Hero Image"
+            name: articles_show_hero_image
+            widget: boolean
+            default: true
+          - label: "[Articles] Show Description"
+            name: articles_show_description
+            widget: boolean
+            default: true
+          - label: "[Articles] Show Prev / Next"
+            name: articles_show_prev_next
+            widget: boolean
+            default: true
+
+          # ── Display: News ─────────────────────────────────────────────────
+          - label: "[News] Show Categories"
+            name: news_show_categories
+            widget: boolean
+            default: true
+          - label: "[News] Show Tags"
+            name: news_show_tags
+            widget: boolean
+            default: false
+          - label: "[News] Show Author"
+            name: news_show_author
+            widget: boolean
+            default: true
+          - label: "[News] Show Date"
+            name: news_show_date
+            widget: boolean
+            default: true
+          - label: "[News] Show Updated Date"
+            name: news_show_updated
+            widget: boolean
+            default: false
+          - label: "[News] Show Hero Image"
+            name: news_show_hero_image
+            widget: boolean
+            default: true
+          - label: "[News] Show Description"
+            name: news_show_description
+            widget: boolean
+            default: true
+          - label: "[News] Show Prev / Next"
+            name: news_show_prev_next
+            widget: boolean
+            default: true
+
+          # ── Display: Events ───────────────────────────────────────────────
+          - label: "[Events] Show Categories"
+            name: events_show_categories
+            widget: boolean
+            default: false
+          - label: "[Events] Show Tags"
+            name: events_show_tags
+            widget: boolean
+            default: false
+          - label: "[Events] Show Author"
+            name: events_show_author
+            widget: boolean
+            default: true
+          - label: "[Events] Show Publish Date"
+            name: events_show_date
+            widget: boolean
+            default: false
+          - label: "[Events] Show Event Details (date, location, links)"
+            name: events_show_event_meta
+            widget: boolean
+            default: true
+          - label: "[Events] Show Hero Image"
+            name: events_show_hero_image
+            widget: boolean
+            default: true
+          - label: "[Events] Show Description"
+            name: events_show_description
+            widget: boolean
+            default: true
+          - label: "[Events] Show Prev / Next"
+            name: events_show_prev_next
+            widget: boolean
+            default: false
+
+          # ── Fonts ─────────────────────────────────────────────────────────
+          - label: Body Font
+            name: body_font
+            widget: string
+            default: "Inter"
+            hint: "Any Google Fonts family name — e.g. Inter, Lato, Merriweather"
+          - label: Heading Font
+            name: heading_font
+            widget: string
+            default: "Inter"
+            hint: "Any Google Fonts family name — e.g. Playfair Display, Raleway"
+
+          # ── Colours ───────────────────────────────────────────────────────
+          - label: Primary (header, headings)
+            name: color_primary
+            widget: color
+            default: "#1e293b"
+          - label: Accent (links, buttons, badges)
+            name: color_accent
+            widget: color
+            default: "#f59e0b"
+          - label: Body Text
+            name: color_text
+            widget: color
+            default: "#334155"
+          - label: Page Background
+            name: color_bg
+            widget: color
+            default: "#fafaf9"
+          - label: Surface (cards, hero, code bg)
+            name: color_surface
+            widget: color
+            default: "#f1f5f9"
+          - label: Border / Divider
+            name: color_border
+            widget: color
+            default: "#e2e8f0"
+          - label: Muted Text (descriptions, secondary)
+            name: color_muted
+            widget: color
+            default: "#64748b"
+          - label: Subtle Text (labels, bylines)
+            name: color_subtle
+            widget: color
+            default: "#94a3b8"
+          - label: Code Block Background
+            name: color_pre_bg
+            widget: color
+            default: "#1e293b"
