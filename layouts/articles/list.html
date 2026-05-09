@@ -1,12 +1,6 @@
 {{ define "main" }}
 
-{{/* ── Filter: only show state content approved in data/approved.yml ──────────── */}}
-{{ $pages := slice }}
-{{ range .Pages }}
-  {{ if partial "is-approved.html" . }}
-    {{ $pages = $pages | append . }}
-  {{ end }}
-{{ end }}
+{{ $pages := .Pages }}
 
 <div class="list-hero">
   <div class="list-hero-inner">

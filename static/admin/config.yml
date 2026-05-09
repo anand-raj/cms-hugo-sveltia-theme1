@@ -148,76 +148,6 @@ collections:
         name: body
         widget: markdown
 
-  - name: events
-    label: Events
-    folder: content/events
-    create: true
-    path: "{{slug}}/index"
-    media_folder: images
-    public_folder: images
-    preview_path: events/{{slug}}/
-    fields:
-      - label: Title
-        name: title
-        widget: string
-      - label: Publish Date
-        name: date
-        widget: datetime
-        format: "YYYY-MM-DDTHH:mm:ssZ"
-      - label: Draft
-        name: draft
-        widget: boolean
-        default: true
-      - label: Description
-        name: description
-        widget: text
-        required: false
-      - label: Event Date
-        name: event_date
-        widget: datetime
-        format: "YYYY-MM-DDTHH:mm:ssZ"
-      - label: Event End Date
-        name: event_end_date
-        widget: datetime
-        format: "YYYY-MM-DDTHH:mm:ssZ"
-        required: false
-      - label: Location
-        name: event_location
-        widget: string
-        required: false
-      - label: Event URL
-        name: event_url
-        widget: string
-        required: false
-      - label: Registration URL
-        name: registration_url
-        widget: string
-        required: false
-      - label: Categories
-        name: categories
-        widget: list
-        default: ["Event"]
-      - label: Tags
-        name: tags
-        widget: list
-        required: false
-        hint: "Add 'state-chapter' to publish this event in the State Chapters section."
-      - label: State Chapter
-        name: states
-        widget: select
-        multiple: true
-        required: false
-        hint: "Select the state this content belongs to."
-        options:
-          - { label: "Karnataka", value: "karnataka" }
-      - label: Hero Image
-        name: image
-        widget: image
-        required: false
-      - label: Body
-        name: body
-        widget: markdown
-
   - name: approvals
     label: "State Chapter Approvals"
     description: "Control which state chapter content appears on the global homepage and articles/news/events pages. State chapter pages always show all state content."
@@ -325,40 +255,6 @@ collections:
             name: news_show_prev_next
             widget: boolean
             default: true
-
-          # ── Display: Events ───────────────────────────────────────────────
-          - label: "[Events] Show Categories"
-            name: events_show_categories
-            widget: boolean
-            default: false
-          - label: "[Events] Show Tags"
-            name: events_show_tags
-            widget: boolean
-            default: false
-          - label: "[Events] Show Author"
-            name: events_show_author
-            widget: boolean
-            default: true
-          - label: "[Events] Show Publish Date"
-            name: events_show_date
-            widget: boolean
-            default: false
-          - label: "[Events] Show Event Details (date, location, links)"
-            name: events_show_event_meta
-            widget: boolean
-            default: true
-          - label: "[Events] Show Hero Image"
-            name: events_show_hero_image
-            widget: boolean
-            default: true
-          - label: "[Events] Show Description"
-            name: events_show_description
-            widget: boolean
-            default: true
-          - label: "[Events] Show Prev / Next"
-            name: events_show_prev_next
-            widget: boolean
-            default: false
 
           # ── Fonts ─────────────────────────────────────────────────────────
           - label: Body Font

@@ -1,6 +1,7 @@
 baseURL = 'https://anand-raj.github.io/cms-hugo-sveltia/'
 languageCode = 'en-us'
 title = 'My New Hugo Project'
+cleanDestinationDir = true
 
 [taxonomies]
   tag      = "tags"
@@ -29,7 +30,3 @@ title = 'My New Hugo Project'
   url    = "/news/"
   weight = 30
 
-[[menus.main]]
-  name   = "Events"
-  url    = "/events/"
-  weight = 40
