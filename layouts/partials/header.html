@@ -10,7 +10,7 @@
     <ul class="nav-links">
       {{ with site.Menus.main }}
         {{ range . }}
-        <li><a href="{{ .URL }}"{{ if $.IsMenuCurrent "main" . }} aria-current="page"{{ end }}>{{ .Name }}</a></li>
+        <li><a href="{{ .URL }}"{{ if $.IsMenuCurrent "main" . }} aria-current="page"{{ end }}>{{ i18n .Identifier | default .Name }}</a></li>
         {{ end }}
       {{ end }}
 
@@ -36,13 +36,16 @@
 
     // ── Shrink nav on scroll ─────────────────────────────────────────────────
     var header = document.getElementById('siteHeader');
+    var scrolled = false;
     window.addEventListener('scroll', function () {
-      if (window.scrollY > 60) {
+      if (!scrolled && window.scrollY > 80) {
         header.classList.add('is-scrolled');
-      } else {
+        scrolled = true;
+      } else if (scrolled && window.scrollY < 40) {
         header.classList.remove('is-scrolled');
+        scrolled = false;
       }
-      setHeaderHeight();
     }, { passive: true });
+    header.addEventListener('transitionend', setHeaderHeight);
   })();
 </script>

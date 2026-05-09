@@ -1,6 +1,6 @@
 {{/* Share buttons — sticky right on desktop, inline on mobile */}}
-<div class="share-buttons" aria-label="Share this page">
-  <span class="share-label" aria-hidden="true">Share</span>
+<div class="share-buttons" aria-label="{{ i18n "share" }}">
+  <span class="share-label" aria-hidden="true">{{ i18n "share" }}</span>
   <a class="share-btn share-btn--x"
      href="https://twitter.com/intent/tweet?url={{ .Permalink | urlquery }}&text={{ .Title | urlquery }}"
      target="_blank" rel="noopener noreferrer" aria-label="Share on X">

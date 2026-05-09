@@ -1,5 +1,6 @@
 baseURL = '/'
-languageCode = 'en-us'
+languageCode = 'en'
+defaultContentLanguage = 'en'
 title = 'My New Hugo Project'
 cleanDestinationDir = true
 
@@ -21,12 +22,20 @@ cleanDestinationDir = true
     github  = "anand-raj"
 
 [[menus.main]]
-  name   = "Articles"
-  url    = "/articles/"
-  weight = 10
+  name       = "Articles"
+  identifier = "menu_articles"
+  url        = "/articles/"
+  weight     = 10
 
 [[menus.main]]
-  name   = "News"
-  url    = "/news/"
-  weight = 30
+  name       = "News"
+  identifier = "menu_news"
+  url        = "/news/"
+  weight     = 30
+
+[[menus.main]]
+  name       = "About"
+  identifier = "menu_about"
+  url        = "/about/"
+  weight     = 50
 

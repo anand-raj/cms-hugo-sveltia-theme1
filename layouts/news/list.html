@@ -21,14 +21,14 @@
     </a>
     {{ end }}
     <div class="news-lead-body">
-      <div class="news-label">Lead Story</div>
+      <div class="news-label">{{ i18n "lead_story" }}</div>
       <h2 class="news-lead-title"><a href="{{ $lead.RelPermalink }}">{{ $lead.Title }}</a></h2>
       {{ with $lead.Description }}<p class="news-lead-desc">{{ . }}</p>{{ end }}
       <div class="card-byline">
         <time datetime="{{ $lead.Date.Format "2006-01-02" }}">{{ $lead.Date.Format "January 2, 2006" }}</time>
         {{ with $lead.Params.author }} · <span>{{ . }}</span>{{ end }}
       </div>
-      <a class="news-lead-cta" href="{{ $lead.RelPermalink }}">Read story →</a>
+      <a class="news-lead-cta" href="{{ $lead.RelPermalink }}">{{ i18n "read_story" }}</a>
     </div>
   </div>
 
@@ -58,7 +58,7 @@
   {{ end }}
 
   {{ else }}
-  <p class="no-posts">No news yet.</p>
+  <p class="no-posts">{{ i18n "no_news" }}</p>
   {{ end }}
 </div>
 

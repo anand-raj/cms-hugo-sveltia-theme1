@@ -3,14 +3,14 @@
   <div class="search-page">
 
     <header class="search-page-header">
-      <h1 class="search-page-title">Search</h1>
+      <h1 class="search-page-title">{{ i18n "search_title" }}</h1>
       <form class="search-form search-form--page" id="search-form" action="{{ "/search/" | relURL }}" method="get">
         <div class="search-input-wrap">
           <input
             type="search"
             name="q"
             id="search-input"
-            placeholder="Search articles, news, events…"
+            placeholder="{{ i18n "search_placeholder" }}"
             class="search-input"
             autocomplete="off"
             autofocus>
@@ -30,6 +30,15 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@7/dist/fuse.min.js" defer></script>
+<script>
+const hugoI18n = {
+  noResults:    {{ i18n "search_no_results" | jsonify }},
+  enterTerm:    {{ i18n "search_enter_term" | jsonify }},
+  unavailable:  {{ i18n "search_unavailable" | jsonify }},
+  resultFor:    {{ i18n "search_result_for" | default "result for" | jsonify }},
+  resultsFor:   {{ i18n "search_results_for" | default "results for" | jsonify }},
+};
+</script>
 <script>
 (function () {
   // relURL gives the correct subpath regardless of host/port (/index.json or /subpath/index.json)
@@ -56,13 +65,13 @@
 
     if (!results.length) {
       status.textContent = query
-        ? `No results found for "${query}".`
-        : "Enter a search term above.";
+        ? `${hugoI18n.noResults} "${query}".`
+        : hugoI18n.enterTerm;
       container.innerHTML = "";
       return;
     }
 
-    status.textContent = `${results.length} result${results.length === 1 ? "" : "s"} for "${query}"`;
+    status.textContent = `${results.length} ${results.length === 1 ? hugoI18n.resultFor : hugoI18n.resultsFor} "${query}"`;
 
     container.innerHTML = results.map(({ item }) => `
       <article class="search-result">
@@ -130,8 +139,7 @@
         }
       })
       .catch(function (err) {
-        document.getElementById("search-status").textContent =
-          "Search unavailable. Please try again later.";
+        document.getElementById("search-status").textContent = hugoI18n.unavailable;
         console.error(err);
       });
   });

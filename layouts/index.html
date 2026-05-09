@@ -26,9 +26,7 @@
           {{ with $p.Description }}
             <p class="hero-slide-desc">{{ . | truncate 140 }}</p>
           {{ end }}
-          <a class="hero-slide-cta" href="{{ $p.RelPermalink }}">
-            Read {{ $p.Section | strings.TrimRight "s" }} →
-          </a>
+          <a class="hero-slide-cta" href="{{ $p.RelPermalink }}">{{ i18n "read_article" }}</a>
         </div>
       </div>
       {{ end }}
@@ -62,14 +60,14 @@
         {{ partial "post-image.html" (dict "page" $featured "src" . "width" "1200" "alt" $featured.Title "class" "featured-post-image-link" "href" $featured.RelPermalink "loading" "eager") }}
       {{ end }}
       <div class="featured-post-body">
-        <span class="section-chip">Featured Article</span>
+        <span class="section-chip">{{ i18n "featured_article" }}</span>
         <h2><a href="{{ $featured.RelPermalink }}">{{ $featured.Title }}</a></h2>
         {{ with $featured.Description }}<p class="featured-post-desc">{{ . }}</p>{{ end }}
         <div class="card-byline">
           <time datetime="{{ $featured.Date.Format "2006-01-02" }}">{{ $featured.Date.Format "January 2, 2006" }}</time>
           {{ with $featured.Params.author }} · <span>{{ . }}</span>{{ end }}
         </div>
-        <a class="featured-post-cta" href="{{ $featured.RelPermalink }}">Read article →</a>
+        <a class="featured-post-cta" href="{{ $featured.RelPermalink }}">{{ i18n "read_article" }}</a>
       </div>
     </div>
     {{ end }}
@@ -84,8 +82,8 @@
         {{ if $allNews }}
         <div class="home-section">
           <div class="section-header">
-            <h2 class="section-label">Latest News</h2>
-            <a class="section-viewall" href="/news/">View all →</a>
+            <h2 class="section-label">{{ i18n "latest_news" }}</h2>
+            <a class="section-viewall" href="/news/">{{ i18n "view_all" }}</a>
           </div>
           <div class="post-grid post-grid--3">
             {{ range first 3 $allNews }}
@@ -112,8 +110,8 @@
         {{ if $moreNews }}
         <div class="home-section">
           <div class="section-header">
-            <h2 class="section-label">More News</h2>
-            <a class="section-viewall" href="/news/">View all →</a>
+            <h2 class="section-label">{{ i18n "more_news" }}</h2>
+            <a class="section-viewall" href="/news/">{{ i18n "view_all" }}</a>
           </div>
           <div class="news-list">
             {{ range first 5 $moreNews }}
@@ -142,8 +140,8 @@
         {{ if $restArticles }}
         <div class="home-section">
           <div class="section-header">
-            <h2 class="section-label">More Articles</h2>
-            <a class="section-viewall" href="/articles/">View all →</a>
+            <h2 class="section-label">{{ i18n "more_articles" }}</h2>
+            <a class="section-viewall" href="/articles/">{{ i18n "view_all" }}</a>
           </div>
           <div class="post-grid post-grid--3">
             {{ range first 3 $restArticles }}

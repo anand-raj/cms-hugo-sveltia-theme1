@@ -3,12 +3,12 @@
   <ul class="social-links">
     {{ with site.Params.social.twitter }}
     <li>
-      <a href="https://twitter.com/{{ . }}" rel="noopener noreferrer" target="_blank">Twitter</a>
+      <a href="https://twitter.com/{{ . }}" rel="noopener noreferrer" target="_blank">{{ i18n "footer_twitter" }}</a>
     </li>
     {{ end }}
     {{ with site.Params.social.github }}
     <li>
-      <a href="https://github.com/{{ . }}" rel="noopener noreferrer" target="_blank">GitHub</a>
+      <a href="https://github.com/{{ . }}" rel="noopener noreferrer" target="_blank">{{ i18n "footer_github" }}</a>
     </li>
     {{ end }}
   </ul>

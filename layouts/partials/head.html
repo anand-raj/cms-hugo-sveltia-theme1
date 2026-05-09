@@ -34,6 +34,11 @@
 <link href="https://fonts.googleapis.com/css2?family={{ $bodyFont | urlize | replaceRE "-" "+" }}:wght@400;600&family={{ $headingFont | urlize | replaceRE "-" "+" }}:wght@700&display=swap" rel="stylesheet">
 {{ end }}
 
+{{/* Always load Baloo Tamma 2 for Kannada script support */}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
 :root {
   --font-body:     '{{ $bodyFont }}', system-ui, sans-serif;
@@ -48,6 +53,7 @@
   --color-subtle:  {{ $subtle }};
   --color-pre-bg:  {{ $preBg }};
   --color-nav:     {{ $navColor }};
+  --font-kannada:  'Baloo Tamma 2', sans-serif;
 }
 </style>
 
