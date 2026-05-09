@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: anand-raj/cms-hugo-sveltia
+  repo: anand-raj/cms-hugo-sveltia-theme1
   branch: main
   base_url: https://sveltia-cms-auth.e-anandraj.workers.dev
 
@@ -8,7 +8,7 @@ backend:
 media_folder: content/articles
 public_folder: /articles
 
-site_url: https://anand-raj.github.io/cms-hugo-sveltia/
+site_url: https://anand-raj.github.io/cms-hugo-sveltia-theme1/
 
 collections:
   - name: articles
@@ -58,16 +58,6 @@ collections:
         name: tags
         widget: list
         required: false
-        hint: "Add 'state-chapter' to publish this article in the State Chapters section."
-
-      - label: State Chapter
-        name: states
-        widget: select
-        multiple: true
-        required: false
-        hint: "Select the state this content belongs to (set by state chapter editors)."
-        options:
-          - { label: "Karnataka", value: "karnataka" }
 
       - label: Hero Image
         name: image
@@ -131,15 +121,6 @@ collections:
         name: tags
         widget: list
         required: false
-        hint: "Add 'state-chapter' to publish this news item in the State Chapters section."
-      - label: State Chapter
-        name: states
-        widget: select
-        multiple: true
-        required: false
-        hint: "Select the state this content belongs to."
-        options:
-          - { label: "Karnataka", value: "karnataka" }
       - label: Hero Image
         name: image
         widget: image
@@ -147,35 +128,6 @@ collections:
       - label: Body
         name: body
         widget: markdown
-
-  - name: approvals
-    label: "State Chapter Approvals"
-    description: "Control which state chapter content appears on the global homepage and articles/news/events pages. State chapter pages always show all state content."
-    files:
-      - name: approved
-        label: Approved Content
-        file: data/approved.yml
-        fields:
-          - label: Karnataka
-            name: karnataka
-            widget: object
-            hint: "Slugs listed here appear on the Karnataka chapter page AND on the global homepage/articles/news/events pages."
-            fields:
-              - label: Articles
-                name: articles
-                widget: list
-                field: { label: Article Slug, name: slug, widget: string }
-                hint: "Slug = folder name under content/articles/"
-              - label: News
-                name: news
-                widget: list
-                field: { label: News Slug, name: slug, widget: string }
-                hint: "Slug = folder name under content/news/"
-              - label: Events
-                name: events
-                widget: list
-                field: { label: Event Slug, name: slug, widget: string }
-                hint: "Slug = folder name under content/events/"
 
   - name: settings
     label: Site Settings
