@@ -1,4 +1,5 @@
 <header class="site-header" id="siteHeader">
+  {{ $s := hugo.Data.settings }}
   <nav class="site-nav">
     <a class="site-title" href="{{ site.Home.RelPermalink }}">
       <img src="{{ "logo.png" | relURL }}" alt="{{ site.Title }} logo" class="site-logo">
@@ -13,19 +14,21 @@
         <li><a href="{{ .URL }}"{{ if $.IsMenuCurrent "main" . }} aria-current="page"{{ end }}>{{ i18n .Identifier | default .Name }}</a></li>
         {{ end }}
       {{ end }}
+      {{ if $s.show_language_switcher }}
+      <li class="nav-lang-item">
+        {{ $currentLang := site.Language.Lang }}
+        {{ $urls := dict $currentLang .RelPermalink }}
+        {{ range .Translations }}
+          {{ $urls = merge $urls (dict .Language.Lang .RelPermalink) }}
+        {{ end }}
+        {{ range hugo.Sites }}
+          {{ $lang := .Language.Lang }}
+          {{ $url := index $urls $lang | default .Home.RelPermalink }}
+          <a href="{{ $url }}"{{ if eq $lang $currentLang }} class="is-active"{{ end }}>{{ .Language.LanguageName }}</a>
+        {{ end }}
+      </li>
+      {{ end }}
     </ul>
-    <div class="lang-switch">
-      {{ $currentLang := site.Language.Lang }}
-      {{ $urls := dict $currentLang .RelPermalink }}
-      {{ range .Translations }}
-        {{ $urls = merge $urls (dict .Language.Lang .RelPermalink) }}
-      {{ end }}
-      {{ range hugo.Sites }}
-        {{ $lang := .Language.Lang }}
-        {{ $url := index $urls $lang | default .Home.RelPermalink }}
-        <a href="{{ $url }}"{{ if eq $lang $currentLang }} class="is-active"{{ end }}>{{ .Language.LanguageName }}</a>
-      {{ end }}
-    </div>
   </nav>
 </header>
 <script>

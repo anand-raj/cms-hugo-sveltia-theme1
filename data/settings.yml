@@ -18,6 +18,10 @@ news_show_updated:     false
 news_show_hero_image:  true
 news_show_description: true
 news_show_prev_next:   true
+news_list_page_size:   20
+
+# ── Navigation ────────────────────────────────────────────────────────────────
+show_language_switcher: true
 
 # ── Display: Events ───────────────────────────────────────────────────────────
 events_show_categories:  false

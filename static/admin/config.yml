@@ -299,6 +299,18 @@ collections:
             name: news_show_prev_next
             widget: boolean
             default: true
+          - label: "[News] List Page Size"
+            name: news_list_page_size
+            widget: number
+            default: 20
+            hint: "Max news items shown per page"
+
+          # ── Navigation ───────────────────────────────────────────────────
+          - label: "Show Language Switcher"
+            name: show_language_switcher
+            widget: boolean
+            default: true
+            hint: "Show the language switcher in the mobile menu"
 
           # ── Fonts ─────────────────────────────────────────────────────────
           - label: Body Font
