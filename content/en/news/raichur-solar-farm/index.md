@@ -1,10 +1,10 @@
 ---
-title: "Raichur's 500 MW Solar Farm Begins Commercial Operation"
+title: Raichur's 500 MW Solar Farm Begins Commercial Operation
 date: 2026-04-03T09:00:00+05:30
-lastmod: 2026-04-03T09:00:00+05:30
+lastmod: 2026-05-10T22:31:00+05:30
 draft: false
-description: "One of Karnataka's largest solar installations, spread across 2,100 acres in Raichur district, has begun supplying power to the state grid — a milestone for northern Karnataka's energy transition."
-author: "Staff Reporter"
+description: One of Karnataka's largest solar installations, spread across 2,100 acres in Raichur district, has begun supplying power to the state grid — a milestone for northern Karnataka's energy transition.
+author: Staff Reporter
 categories:
   - News
 tags:
@@ -12,12 +12,12 @@ tags:
   - energy
   - raichur
   - karnataka
-toc: false
-comments: true
-image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&fm=webp&q=80"
-image_caption: "Photo by [American Public Power Association](https://unsplash.com/@publicpowerorg) on [Unsplash](https://unsplash.com)"
+image: https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&fm=webp&q=80
 states:
   - karnataka
+image_caption: Photo by [American Public Power Association](https://unsplash.com/@publicpowerorg) on [Unsplash](https://unsplash.com)
+comments: true
+toc: false
 ---
 
 A 500 MW solar power plant in Raichur district has commenced commercial operations, making it one of the largest single solar installations in Karnataka and a significant step in the state's push toward renewable energy targets.
