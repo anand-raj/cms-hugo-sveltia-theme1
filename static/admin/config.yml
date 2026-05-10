@@ -81,6 +81,21 @@ collections:
         required: false
         hint: "e.g. Photo by [Name](https://unsplash.com/@handle) on [Unsplash](https://unsplash.com)"
 
+      - &f_slider
+        label: Show in Home Slider
+        name: show_in_slider
+        widget: boolean
+        default: false
+        hint: "Mark this post to appear in the home page hero slider"
+
+      - &f_priority
+        label: Priority
+        name: priority
+        widget: select
+        options: [primary, secondary, tertiary]
+        required: false
+        hint: "Controls layout in the articles list: primary = full-width hero, secondary = card grid, tertiary = compact list"
+
       - &f_toc
         label: Table of Contents
         name: toc
@@ -125,6 +140,7 @@ collections:
         media_libraries:
           default: false
         hint: "Paste an image URL (e.g. https://images.unsplash.com/photo-ID?w=1200&fm=webp&q=80)"
+      - *f_slider
       - *f_body
 
   - name: articles_kn
@@ -155,6 +171,8 @@ collections:
         media_libraries:
           default: false
         hint: "Paste an image URL (e.g. https://images.unsplash.com/photo-ID?w=1200&fm=webp&q=80)"
+      - *f_slider
+      - *f_priority
       - *f_toc
       - *f_body
 
@@ -186,6 +204,7 @@ collections:
         media_libraries:
           default: false
         hint: "Paste an image URL (e.g. https://images.unsplash.com/photo-ID?w=1200&fm=webp&q=80)"
+      - *f_slider
       - *f_body
 
   - name: settings
