@@ -1,8 +1,8 @@
 {{ define "main" }}
 {{ $s := hugo.Data.settings }}
 
-{{ $allNews     := where site.RegularPages "Section" "news" }}
-{{ $allArticles := where site.RegularPages "Section" "articles" }}
+{{ $allNews     := (where site.RegularPages "Section" "news").ByLastmod.Reverse }}
+{{ $allArticles := (where site.RegularPages "Section" "articles").ByLastmod.Reverse }}
 
 {{/* ── Hero Slider: 3 latest news + 3 latest articles ─────────────────────── */}}
 {{ $sliderNews     := first 3 $allNews }}

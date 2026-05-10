@@ -2,7 +2,7 @@
 {{ $s := hugo.Data.settings }}
 {{ $pageSize := $s.news_list_page_size | default 20 }}
 
-{{ $paginator   := .Paginate .Pages $pageSize }}
+{{ $paginator   := .Paginate (.Pages.ByLastmod.Reverse) $pageSize }}
 {{ $pages       := $paginator.Pages }}
 {{ $isFirstPage := eq $paginator.PageNumber 1 }}
 

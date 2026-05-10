@@ -1,6 +1,6 @@
 {{ define "main" }}
 
-{{ $allPages  := .Pages }}
+{{ $allPages  := .Pages.ByLastmod.Reverse }}
 {{ $grouped   := $allPages.GroupByDate "January 2006" }}
 {{ $showCount := 4 }}{{/* months visible by default */}}
 
