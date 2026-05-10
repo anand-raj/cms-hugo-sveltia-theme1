@@ -83,7 +83,7 @@
         <div class="home-section">
           <div class="section-header">
             <h2 class="section-label">{{ i18n "latest_news" }}</h2>
-            <a class="section-viewall" href="/news/">{{ i18n "view_all" }}</a>
+            <a class="section-viewall" href="{{ with site.GetPage "news" }}{{ .RelPermalink }}{{ else }}/news/{{ end }}">{{ i18n "view_all" }}</a>
           </div>
           <div class="post-grid post-grid--3">
             {{ range first 3 $allNews }}
@@ -111,7 +111,7 @@
         <div class="home-section">
           <div class="section-header">
             <h2 class="section-label">{{ i18n "more_news" }}</h2>
-            <a class="section-viewall" href="/news/">{{ i18n "view_all" }}</a>
+            <a class="section-viewall" href="{{ with site.GetPage "news" }}{{ .RelPermalink }}{{ else }}/news/{{ end }}">{{ i18n "view_all" }}</a>
           </div>
           <div class="news-list">
             {{ range first 5 $moreNews }}
@@ -141,7 +141,7 @@
         <div class="home-section">
           <div class="section-header">
             <h2 class="section-label">{{ i18n "more_articles" }}</h2>
-            <a class="section-viewall" href="/articles/">{{ i18n "view_all" }}</a>
+            <a class="section-viewall" href="{{ with site.GetPage "articles" }}{{ .RelPermalink }}{{ else }}/articles/{{ end }}">{{ i18n "view_all" }}</a>
           </div>
           <div class="post-grid post-grid--3">
             {{ range first 3 $restArticles }}
