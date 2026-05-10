@@ -5,19 +5,10 @@
 {{ $showCount := 4 }}{{/* months visible by default */}}
 
 <div class="list-hero">
-  <div class="list-hero-inner">
+  <div class="list-hero-inner list-hero-inner--split">
     <h1 class="list-hero-title">{{ .Title }}</h1>
-    {{ with .Description }}<p class="list-hero-desc">{{ . }}</p>{{ end }}
-  </div>
-</div>
-
-<div class="content-wrap content-wrap--wide">
-  {{ if $grouped }}
-
-  {{/* ── Month filter bar ─────────────────────────────────────────────────── */}}
-  <div class="month-filter" id="monthFilter">
-    <label class="month-filter-label" for="monthSelect">{{ i18n "month_filter_label" }}</label>
-    <div class="month-filter-controls">
+    {{ if $grouped }}
+    <div class="month-filter-controls" id="monthFilter">
       <button class="month-nav-btn" id="monthPrev" aria-label="{{ i18n "older_months" }}">{{ i18n "older_months" }}</button>
       <select class="month-select" id="monthSelect">
         {{ range $i, $g := $grouped }}
@@ -26,11 +17,16 @@
       </select>
       <button class="month-nav-btn" id="monthNext" aria-label="{{ i18n "newer_months" }}">{{ i18n "newer_months" }}</button>
     </div>
+    {{ end }}
   </div>
+</div>
+
+<div class="content-wrap content-wrap--wide">
+  {{ if $grouped }}
 
   {{/* ── Month groups ─────────────────────────────────────────────────────── */}}
   {{ range $i, $group := $grouped }}
-  {{ $primary   := first 1 (where $group.Pages "Params.priority" "primary") }}
+  {{ $primary   := where $group.Pages "Params.priority" "primary" }}
   {{ $secondary := where $group.Pages "Params.priority" "secondary" }}
   {{ $tertiary  := where $group.Pages "Params.priority" "tertiary" }}
   {{/* Fallback: if no primary set, promote the first article */}}
@@ -47,28 +43,27 @@
       <span class="month-group-count">{{ len $group.Pages }} {{ i18n "articles" }}</span>
     </div>
 
-    {{/* ── Primary article ──────────────────────────────────────────────── */}}
+    {{/* ── Primary articles — each gets its own full-width hero row ────── */}}
     {{ range $primary }}
+    {{ $article := . }}
     <div class="month-primary">
       {{ with .Params.image }}
-      <a class="month-primary-img" href="{{ $.RelPermalink }}">
-        {{ partial "post-image.html" (dict "page" $ "src" . "width" "900" "alt" $.Title "loading" "eager") }}
+      <a class="month-primary-img" href="{{ $article.RelPermalink }}">
+        {{ partial "post-image.html" (dict "page" $article "src" . "width" "900" "alt" $article.Title "loading" "eager") }}
       </a>
       {{ end }}
       <div class="month-primary-body">
-        <span class="priority-badge priority-badge--primary">{{ i18n "priority_primary" }}</span>
-        {{ with .GetTerms "categories" }}
+        {{ with $article.GetTerms "categories" }}
         <div class="card-meta">
           {{ range . }}<a class="card-category" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
         </div>
         {{ end }}
-        <h2 class="month-primary-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-        {{ with .Description }}<p class="month-primary-desc">{{ . }}</p>{{ end }}
+        <h2 class="month-primary-title"><a href="{{ $article.RelPermalink }}">{{ $article.Title }}</a></h2>
         <div class="card-byline">
-          {{ with .Params.author }}<span>{{ . }}</span> · {{ end }}
-          <span>{{ math.Round (div (countwords .Content) 200.0) }} {{ i18n "min_read" }}</span>
+          {{ with $article.Params.author }}<span>{{ . }}</span> · {{ end }}
+          <span>{{ math.Round (div (countwords $article.Content) 200.0) }} {{ i18n "min_read" }}</span>
         </div>
-        <a class="featured-post-cta" href="{{ .RelPermalink }}">{{ i18n "read_article" }}</a>
+        <a class="featured-post-cta" href="{{ $article.RelPermalink }}">{{ i18n "read_article" }}</a>
       </div>
     </div>
     {{ end }}
@@ -83,17 +78,15 @@
           {{ partial "post-image.html" (dict "page" $card "src" . "width" "600" "alt" $card.Title "class" "post-card-image-link" "href" $card.RelPermalink "loading" "lazy") }}
         {{ end }}
         <div class="post-card-body">
-          <span class="priority-badge priority-badge--secondary">{{ i18n "priority_secondary" }}</span>
-          {{ with .GetTerms "categories" }}
+          {{ with $card.GetTerms "categories" }}
           <div class="card-meta">
             {{ range . }}<a class="card-category" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
           </div>
           {{ end }}
-          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-          {{ with .Description }}<p class="post-card-desc">{{ . }}</p>{{ end }}
+          <h3><a href="{{ $card.RelPermalink }}">{{ $card.Title }}</a></h3>
           <div class="card-byline">
-            {{ with .Params.author }}<span>{{ . }}</span> · {{ end }}
-            <span>{{ math.Round (div (countwords .Content) 200.0) }} {{ i18n "min_read" }}</span>
+            {{ with $card.Params.author }}<span>{{ . }}</span> · {{ end }}
+            <span>{{ math.Round (div (countwords $card.Content) 200.0) }} {{ i18n "min_read" }}</span>
           </div>
         </div>
       </article>
