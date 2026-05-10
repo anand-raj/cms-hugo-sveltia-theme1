@@ -69,7 +69,10 @@ collections:
         name: image
         widget: image
         required: false
-        hint: "Use an Unsplash URL (https://images.unsplash.com/photo-ID?w=1200&fm=webp&q=80) or upload a file to the page bundle."
+        choose_url: true
+        media_libraries:
+          default: false
+        hint: "Paste an image URL (e.g. https://images.unsplash.com/photo-ID?w=1200&fm=webp&q=80)"
 
       - label: Image Caption
         name: image_caption
@@ -116,6 +119,10 @@ collections:
         name: image
         widget: image
         required: false
+        choose_url: true
+        media_libraries:
+          default: false
+        hint: "Paste an image URL (e.g. https://images.unsplash.com/photo-ID?w=1200&fm=webp&q=80)"
       - *f_body
 
   - name: articles_kn
@@ -141,6 +148,10 @@ collections:
         name: image
         widget: image
         required: false
+        choose_url: true
+        media_libraries:
+          default: false
+        hint: "Paste an image URL (e.g. https://images.unsplash.com/photo-ID?w=1200&fm=webp&q=80)"
       - *f_toc
       - *f_body
 
@@ -167,6 +178,10 @@ collections:
         name: image
         widget: image
         required: false
+        choose_url: true
+        media_libraries:
+          default: false
+        hint: "Paste an image URL (e.g. https://images.unsplash.com/photo-ID?w=1200&fm=webp&q=80)"
       - *f_body
 
   - name: settings
