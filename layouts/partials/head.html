@@ -14,9 +14,10 @@
 
 {{/* ── Site Settings: fonts + CSS custom properties ── */}}
 {{ $s := hugo.Data.settings }}
-{{ $bodyFont    := default "Inter" $s.body_font }}
-{{ $headingFont := default "Inter" $s.heading_font }}
-{{ $kannadaFont := default "Baloo Tamma 2" $s.kannada_font }}
+{{ $bodyFont           := default "Inter" $s.body_font }}
+{{ $headingFont        := default "Inter" $s.heading_font }}
+{{ $kannadaBodyFont    := default "Baloo Tamma 2" $s.kannada_body_font }}
+{{ $kannadaHeadingFont := default "Baloo Tamma 2" $s.kannada_heading_font }}
 {{ $primary     := default "#1a1a2e" $s.color_primary }}
 {{ $accent      := default "#e94560" $s.color_accent }}
 {{ $textColor   := default "#333333" $s.color_text }}
@@ -36,11 +37,20 @@
 <link href="https://fonts.googleapis.com/css2?family={{ $bodyFont | urlize | replaceRE "-" "+" }}:wght@400;600&family={{ $headingFont | urlize | replaceRE "-" "+" }}:wght@700&display=swap" rel="stylesheet">
 {{ end }}
 
-{{/* Load Kannada/script font from settings */}}
-{{ if not (in $systemFonts $kannadaFont) }}
+{{/* Load Kannada fonts from settings */}}
+{{ $kannadaFontsToLoad := slice }}
+{{ if not (in $systemFonts $kannadaBodyFont) }}
+  {{ $kannadaFontsToLoad = $kannadaFontsToLoad | append $kannadaBodyFont }}
+{{ end }}
+{{ if and (not (in $systemFonts $kannadaHeadingFont)) (ne $kannadaHeadingFont $kannadaBodyFont) }}
+  {{ $kannadaFontsToLoad = $kannadaFontsToLoad | append $kannadaHeadingFont }}
+{{ end }}
+{{ if gt (len $kannadaFontsToLoad) 0 }}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family={{ $kannadaFont | urlize | replaceRE "-" "+" }}:wght@400;600;700&display=swap" rel="stylesheet">
+{{ range $kannadaFontsToLoad }}
+<link href="https://fonts.googleapis.com/css2?family={{ . | urlize | replaceRE "-" "+" }}:wght@400;600;700&display=swap" rel="stylesheet">
+{{ end }}
 {{ end }}
 
 <style>
@@ -56,8 +66,9 @@
   --color-muted:   {{ $muted }};
   --color-subtle:  {{ $subtle }};
   --color-pre-bg:  {{ $preBg }};
-  --color-nav:     {{ $navColor }};
-  --font-kannada:  '{{ $kannadaFont }}', sans-serif;
+  --color-nav:            {{ $navColor }};
+  --font-kannada-body:    '{{ $kannadaBodyFont }}', sans-serif;
+  --font-kannada-heading: '{{ $kannadaHeadingFont }}', sans-serif;
 }
 </style>
 

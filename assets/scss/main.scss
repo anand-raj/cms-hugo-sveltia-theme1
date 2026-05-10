@@ -1463,11 +1463,11 @@ img {
 }
 
 .kannada-content {
-  font-family: var(--font-kannada);
+  font-family: var(--font-kannada-body);
   font-size: 1.15rem;
   line-height: 2;
 
-  h2, h3 { font-family: var(--font-kannada); }
+  h2, h3 { font-family: var(--font-kannada-heading); }
 }
 
 // ─── Post Footer ──────────────────────────────────────────────────────────────
