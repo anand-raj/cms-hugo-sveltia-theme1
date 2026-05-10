@@ -1,6 +1,6 @@
 {{ define "main" }}
   <div class="content-wrap">
-  <section class="list">
+  <section class="list{{ if eq .Lang "kn" }} kannada-content{{ end }}">
     <h1>{{ .Title }}</h1>
     {{ range .Pages.ByLastmod.Reverse }}
     <article class="list-item">

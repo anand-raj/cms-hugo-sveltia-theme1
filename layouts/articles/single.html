@@ -18,7 +18,7 @@
   <div class="post-layout">
 
     {{/* ════ MAIN COLUMN ════ */}}
-    <article class="post post-layout__main">
+    <article class="post post-layout__main{{ if eq .Lang "kn" }} kannada-content{{ end }}">
 
       <header class="post-header">
         {{ if $s.articles_show_categories }}
@@ -40,7 +40,7 @@
         {{ partial "post-byline.html" (dict "page" . "s" $s "prefix" "articles") }}
       </header>
 
-      <div class="post-content{{ if eq .Lang "kn" }} kannada-content{{ end }}">
+      <div class="post-content">
         {{ .Content }}
       </div>
 

@@ -11,7 +11,7 @@
 {{ $sliderArticles := cond (gt (len $markedArticles) 0) (first 3 $markedArticles) (first 3 $allArticles) }}
 {{ $sliderItems    := $sliderNews | append $sliderArticles }}
 
-<section class="home">
+<section class="home{{ if eq .Lang "kn" }} kannada-content{{ end }}">
 
   <div class="hero-slider" id="heroSlider">
     <div class="hero-slider-track" id="heroTrack">

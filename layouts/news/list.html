@@ -6,13 +6,13 @@
 {{ $pages       := $paginator.Pages }}
 {{ $isFirstPage := eq $paginator.PageNumber 1 }}
 
-<div class="list-hero">
+<div class="list-hero{{ if eq .Lang "kn" }} kannada-content{{ end }}">
   <div class="list-hero-inner">
     <h1 class="list-hero-title">{{ .Title }}</h1>
   </div>
 </div>
 
-<div class="content-wrap content-wrap--wide">
+<div class="content-wrap content-wrap--wide{{ if eq .Lang "kn" }} kannada-content{{ end }}">
   {{ if $pages }}
 
   {{ if $isFirstPage }}

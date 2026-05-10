@@ -1,7 +1,7 @@
 {{ define "main" }}
 {{ $s := hugo.Data.settings }}
 <div class="content-wrap">
-<article class="post">
+<article class="post{{ if eq .Lang "kn" }} kannada-content{{ end }}">
 
   {{/* ── Hero Image ─────────────────────────────────────────────────────── */}}
   {{ if $s.news_show_hero_image }}
@@ -47,7 +47,7 @@
   </header>
 
   {{/* ── Body ────────────────────────────────────────────────────────────── */}}
-  <div class="post-content{{ if eq .Lang "kn" }} kannada-content{{ end }}">
+  <div class="post-content">
     {{ .Content }}
   </div>
 
