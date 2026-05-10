@@ -12,6 +12,7 @@ image: https://picsum.photos/id/278/1920/1280.webp
 image_caption: ''
 toc: true
 comments: true
+priority: "primary"
 ---
 
 The Western Ghats are a magnificent mountain range located along the western edge of the Indian subcontinent, running parallel to the Arabian Sea. Stretching for about 1,600 kilometers, this range passes through several Indian states, including Gujarat, Maharashtra, Goa, Karnataka, Kerala, and Tamil Nadu. [[en.wikipedia.org]](https://en.wikipedia.org/wiki/Western_Ghats)

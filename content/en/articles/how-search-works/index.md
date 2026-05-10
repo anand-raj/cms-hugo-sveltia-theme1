@@ -15,6 +15,7 @@ tags:
 toc: true
 image: "https://images.unsplash.com/photo-1555421689-d68471e189f2?w=1200&fm=webp&q=80"
 image_caption: "Photo by [Markus Winkler](https://unsplash.com/@markuswinkler) on [Unsplash](https://unsplash.com)"
+priority: "secondary"
 ---
 
 The search feature on this site runs entirely in the browser — no server, no database, no API calls after the first page load. Here is how it is built.

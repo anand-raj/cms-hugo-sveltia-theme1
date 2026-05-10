@@ -17,6 +17,7 @@ image_caption: ""
 # Features
 toc: true
 comments: true
+priority: "primary"
 ---
 
 JAMstack flips traditional web development on its head. Instead of generating pages on a server at request time, everything is pre-built, globally distributed, and served as static files. The result is a web that's faster, cheaper, and vastly more secure.

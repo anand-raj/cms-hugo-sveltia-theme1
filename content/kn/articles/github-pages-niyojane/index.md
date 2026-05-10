@@ -9,6 +9,7 @@ categories: ["ತಂತ್ರಜ್ಞಾನ"]
 tags: ["hugo", "github-pages", "github-actions", "deployment", "git"]
 toc: true
 comments: true
+priority: "tertiary"
 ---
 
 Hugo ಮೂಲಕ ನಿರ್ಮಿಸಿದ ವೆಬ್‌ಸೈಟ್ ಅನ್ನು GitHub Pages ಬಳಸಿ ಉಚಿತವಾಗಿ ಲೈವ್ ಮಾಡಬಹುದು. GitHub Actions ಮೂಲಕ ಸ್ವಯಂಚಾಲಿತ ನಿಯೋಜನೆ ಸಾಧ್ಯ — ಪ್ರತಿ ಬಾರಿ ನೀವು ಬದಲಾವಣೆ ಪ್ರಕಾಶಿಸಿದಾಗ ಸೈಟ್ ತಾನಾಗಿ ಅಪ್‌ಡೇಟ್ ಆಗುತ್ತದೆ.

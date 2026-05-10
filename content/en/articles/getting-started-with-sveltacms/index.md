@@ -17,6 +17,7 @@ image: images/sveltia-logo.svg
 image_caption: ''
 toc: true
 comments: true
+priority: "secondary"
 ---
 
 ## Introduction

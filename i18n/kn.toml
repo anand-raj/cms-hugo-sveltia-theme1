@@ -78,3 +78,21 @@ other = "X"
 
 [footer_github]
 other = "GitHub"
+
+[also_this_month]
+other = "ಈ ತಿಂಗಳು ಇನ್ನಷ್ಟು"
+
+[month_filter_label]
+other = "ತಿಂಗಳಿನ ಮೂಲಕ ಹುಡುಕಿ"
+
+[older_months]
+other = "← ಹಿಂದಿನ"
+
+[newer_months]
+other = "ಮುಂದಿನ →"
+
+[priority_primary]
+other = "ಮುಖ್ಯ"
+
+[priority_secondary]
+other = "ದ್ವಿತೀಯ"

@@ -16,6 +16,7 @@ image: images/hugo.png
 image_caption: ''
 toc: true
 comments: true
+priority: "secondary"
 ---
 
 ## Introduction

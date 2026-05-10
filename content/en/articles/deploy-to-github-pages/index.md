@@ -17,6 +17,7 @@ image_caption: "Photo by Rabaitul Azad on Unsplash"
 # Features
 toc: true
 comments: true
+priority: "tertiary"
 ---
 
 GitHub Pages is one of the simplest and most cost-effective ways to host a static site. Combined with GitHub Actions, you can set up a fully automated pipeline that builds and deploys your Hugo site on every push to `main` — with zero server management.

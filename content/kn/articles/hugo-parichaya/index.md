@@ -9,6 +9,7 @@ categories: ["ತಂತ್ರಜ್ಞಾನ"]
 tags: ["hugo", "static sites", "web development", "go"]
 toc: true
 comments: true
+priority: "secondary"
 ---
 
 Hugo ಜಗತ್ತಿನ ಅತ್ಯಂತ ವೇಗವಾದ ಸ್ಥಿರ ಸೈಟ್ ಜೆನರೇಟರ್‌ಗಳಲ್ಲಿ ಒಂದಾಗಿದೆ. Go ಪ್ರೋಗ್ರಾಮಿಂಗ್ ಭಾಷೆಯಲ್ಲಿ ನಿರ್ಮಿಸಲಾದ ಈ ಉಪಕರಣ ಸಾವಿರಾರು ಪುಟಗಳನ್ನು ಕೆಲವೇ ಸೆಕೆಂಡುಗಳಲ್ಲಿ ನಿರ್ಮಿಸಬಲ್ಲದು.

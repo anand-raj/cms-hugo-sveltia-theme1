@@ -18,5 +18,6 @@ image_caption: "Photo by [Author] on Unsplash"
 # Features
 toc: true
 comments: true
+priority: "primary"
 ---
 

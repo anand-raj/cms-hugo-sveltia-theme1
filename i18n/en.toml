@@ -78,3 +78,21 @@ other = "X"
 
 [footer_github]
 other = "GitHub"
+
+[also_this_month]
+other = "Also this month"
+
+[month_filter_label]
+other = "Browse by month"
+
+[older_months]
+other = "← Older"
+
+[newer_months]
+other = "Newer →"
+
+[priority_primary]
+other = "Primary"
+
+[priority_secondary]
+other = "Secondary"
