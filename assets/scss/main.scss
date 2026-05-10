@@ -221,9 +221,32 @@ main {
     }
   }
 
-  // .lang-switch is now inside .nav-links as .nav-lang-item — hidden on desktop
+  // Lang switch — visible on desktop right after About; hidden when admin toggle is off
   .nav-lang-item {
-    display: none;
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+    padding-left: 0.75rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
+    margin-left: 0.25rem;
+    list-style: none;
+
+    a {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.8rem;
+      text-decoration: none;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: background 0.15s, color 0.15s;
+
+      &:hover,
+      &.is-active {
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+        text-shadow: none;
+      }
+    }
   }
 
   // ── Mobile styles ──
