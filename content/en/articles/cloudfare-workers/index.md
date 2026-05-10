@@ -8,7 +8,7 @@ author: Admin
 categories:
   - Tech
 tags: []
-image: https://images.unsplash.com/photo-1569428034239-f9565e32e224?w=1200&fm=webp&q=80
+image: https://picsum.photos/id/144/1920/1280.webp
 image_caption: ''
 toc: true
 comments: true
