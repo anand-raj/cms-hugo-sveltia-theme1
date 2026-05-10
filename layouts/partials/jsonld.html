@@ -12,9 +12,13 @@
   "description"   (default "" .Description)
 }}
 {{ if .Params.image }}
-  {{ $data = merge $data (dict "image" (printf "%s%s" site.BaseURL .Params.image)) }}
+  {{ $imgURL := .Params.image }}
+  {{ if not (hasPrefix $imgURL "http") }}
+    {{ $imgURL = $imgURL | absURL }}
+  {{ end }}
+  {{ $data = merge $data (dict "image" $imgURL) }}
 {{ end }}
-<script type="application/ld+json">{{ $data | jsonify | safeJS }}</script>
+<script type="application/ld+json">{{ $data | jsonify | replaceRE `</` `<\/` | safeJS }}</script>
 {{ else if eq $section "events" }}
 {{ $data := dict
   "@context"    "https://schema.org"

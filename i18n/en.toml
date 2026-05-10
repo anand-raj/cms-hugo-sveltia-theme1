@@ -96,3 +96,21 @@ other = "Primary"
 
 [priority_secondary]
 other = "Secondary"
+
+[not_found_title]
+other = "Page not found"
+
+[not_found_message]
+other = "The page you’re looking for doesn’t exist or has been moved."
+
+[go_home]
+other = "Go to homepage"
+
+[skip_to_content]
+other = "Skip to main content"
+
+[search_result_for]
+other = "result for"
+
+[search_results_for]
+other = "results for"

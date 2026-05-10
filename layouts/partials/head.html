@@ -1,5 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
 <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}</title>
 <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
 
@@ -57,11 +58,13 @@
 }
 </style>
 
-{{/* Per-page Google Font (article-level override) */}}
+{{/* Per-page Google Font (article-level override) — only allow known-safe Google Fonts URLs */}}
 {{ with .Params.extra_font }}
+{{ if strings.HasPrefix . "https://fonts.googleapis.com/" }}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="{{ . }}" rel="stylesheet">
+{{ end }}
 {{ end }}
 
 {{/* Hugo internal SEO templates */}}

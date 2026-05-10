@@ -13,6 +13,27 @@ $text-color:    var(--color-text,    #333);
 $bg-color:      var(--color-bg,      #fff);
 $nav-color:     var(--color-nav,     #b91c1c);
 
+// ─── Skip-to-content link (accessibility) ────────────────────────────────────
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--color-accent, #e94560);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 0 0 4px 4px;
+  text-decoration: none;
+  transition: top 0.15s;
+
+  &:focus-visible {
+    top: 0;
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+  }
+}
+
 // ─── Reset ────────────────────────────────────────────────────────────────────
 *, *::before, *::after {
   box-sizing: border-box;

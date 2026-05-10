@@ -59,6 +59,19 @@ cleanDestinationDir = true
 [params]
   description = "A production-ready Hugo site built with best practices."
   [params.social]
-    twitter = "yourtwitterhandle"
+    # twitter = ""  # Set your Twitter/X handle here when ready
     github  = "anand-raj"
+
+[related]
+  threshold    = 60
+  includeNewer = true
+  [[related.indices]]
+    name   = "tags"
+    weight = 80
+  [[related.indices]]
+    name   = "categories"
+    weight = 60
+  [[related.indices]]
+    name   = "date"
+    weight = 10
 

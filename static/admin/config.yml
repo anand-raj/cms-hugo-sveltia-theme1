@@ -20,11 +20,13 @@ collections:
     public_folder: images
     preview_path: articles/{{slug}}/
     fields:
-      - label: Title
+      - &f_title
+        label: Title
         name: title
         widget: string
 
-      - label: Publish Date
+      - &f_date
+        label: Publish Date
         name: date
         widget: datetime
         format: "YYYY-MM-DDTHH:mm:ssZ"
@@ -34,17 +36,20 @@ collections:
         widget: datetime
         format: "YYYY-MM-DDTHH:mm:ssZ"
 
-      - label: Draft
+      - &f_draft
+        label: Draft
         name: draft
         widget: boolean
         default: true
 
-      - label: Description
+      - &f_desc
+        label: Description
         name: description
         widget: text
         required: false
 
-      - label: Author
+      - &f_author
+        label: Author
         name: author
         widget: string
         default: Admin
@@ -54,7 +59,8 @@ collections:
         widget: list
         default: ["Tech"]
 
-      - label: Tags
+      - &f_tags
+        label: Tags
         name: tags
         widget: list
         required: false
@@ -71,7 +77,8 @@ collections:
         required: false
         hint: "e.g. Photo by [Name](https://unsplash.com/@handle) on [Unsplash](https://unsplash.com)"
 
-      - label: Table of Contents
+      - &f_toc
+        label: Table of Contents
         name: toc
         widget: boolean
         default: true
@@ -81,7 +88,8 @@ collections:
         widget: boolean
         default: true
 
-      - label: Body
+      - &f_body
+        label: Body
         name: body
         widget: markdown
 
@@ -94,40 +102,21 @@ collections:
     public_folder: images
     preview_path: news/{{slug}}/
     fields:
-      - label: Title
-        name: title
-        widget: string
-      - label: Publish Date
-        name: date
-        widget: datetime
-        format: "YYYY-MM-DDTHH:mm:ssZ"
-      - label: Draft
-        name: draft
-        widget: boolean
-        default: true
-      - label: Description
-        name: description
-        widget: text
-        required: false
-      - label: Author
-        name: author
-        widget: string
-        default: Admin
+      - *f_title
+      - *f_date
+      - *f_draft
+      - *f_desc
+      - *f_author
       - label: Categories
         name: categories
         widget: list
         default: ["News"]
-      - label: Tags
-        name: tags
-        widget: list
-        required: false
+      - *f_tags
       - label: Hero Image
         name: image
         widget: image
         required: false
-      - label: Body
-        name: body
-        widget: markdown
+      - *f_body
 
   - name: articles_kn
     label: Articles (KN - ಕನ್ನಡ)
@@ -138,44 +127,22 @@ collections:
     public_folder: images
     preview_path: kn/articles/{{slug}}/
     fields:
-      - label: Title
-        name: title
-        widget: string
-      - label: Publish Date
-        name: date
-        widget: datetime
-        format: "YYYY-MM-DDTHH:mm:ssZ"
-      - label: Draft
-        name: draft
-        widget: boolean
-        default: true
-      - label: Description
-        name: description
-        widget: text
-        required: false
-      - label: Author
-        name: author
-        widget: string
-        default: Admin
+      - *f_title
+      - *f_date
+      - *f_draft
+      - *f_desc
+      - *f_author
       - label: Categories
         name: categories
         widget: list
         default: ["Tech"]
-      - label: Tags
-        name: tags
-        widget: list
-        required: false
+      - *f_tags
       - label: Hero Image
         name: image
         widget: image
         required: false
-      - label: Table of Contents
-        name: toc
-        widget: boolean
-        default: true
-      - label: Body
-        name: body
-        widget: markdown
+      - *f_toc
+      - *f_body
 
   - name: news_kn
     label: News (KN - ಕನ್ನಡ)
@@ -186,40 +153,21 @@ collections:
     public_folder: images
     preview_path: kn/news/{{slug}}/
     fields:
-      - label: Title
-        name: title
-        widget: string
-      - label: Publish Date
-        name: date
-        widget: datetime
-        format: "YYYY-MM-DDTHH:mm:ssZ"
-      - label: Draft
-        name: draft
-        widget: boolean
-        default: true
-      - label: Description
-        name: description
-        widget: text
-        required: false
-      - label: Author
-        name: author
-        widget: string
-        default: Admin
+      - *f_title
+      - *f_date
+      - *f_draft
+      - *f_desc
+      - *f_author
       - label: Categories
         name: categories
         widget: list
-        default: ["సುದ್ದಿ"]
-      - label: Tags
-        name: tags
-        widget: list
-        required: false
+        default: ["ಸುದ್ದಿ"]
+      - *f_tags
       - label: Hero Image
         name: image
         widget: image
         required: false
-      - label: Body
-        name: body
-        widget: markdown
+      - *f_body
 
   - name: settings
     label: Site Settings

@@ -1,7 +1,7 @@
 {{ define "main" }}
 {{ $s := hugo.Data.settings }}
 {{ $allArticles := where site.RegularPages "Section" "articles" }}
-{{ $related := first 4 (where $allArticles "RelPermalink" "ne" .RelPermalink) }}
+{{ $related := first 4 ($allArticles.Related .) }}
 
 {{/* ── Hero image (contained within content wrap) ─────────────────────────── */}}
 <div class="content-wrap content-wrap--wide">
@@ -37,24 +37,7 @@
         {{ end }}
         {{ end }}
 
-        <div class="post-byline">
-          {{ if $s.articles_show_author }}
-            {{ with .Params.author }}<span class="post-author">{{ . }}</span>{{ end }}
-          {{ end }}
-          {{ if $s.articles_show_date }}
-            <time class="post-date" datetime="{{ .Date.Format "2006-01-02" }}">
-              {{ .Date.Format "January 2, 2006" }}
-            </time>
-          {{ end }}
-          {{ if $s.articles_show_updated }}
-            {{ if ne .Lastmod .Date }}
-              <span class="post-updated">{{ i18n "updated" }} {{ .Lastmod.Format "January 2, 2006" }}</span>
-            {{ end }}
-          {{ end }}
-          {{ if $s.articles_show_read_time }}
-            <span class="post-read-time">{{ math.Round (div (countwords .Content) 200.0) }} {{ i18n "min_read" }}</span>
-          {{ end }}
-        </div>
+        {{ partial "post-byline.html" (dict "page" . "s" $s "prefix" "articles") }}
       </header>
 
       <div class="post-content">

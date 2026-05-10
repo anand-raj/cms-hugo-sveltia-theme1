@@ -28,13 +28,4 @@ color_border: '#e5e7eb'
 color_muted: '#6b7280'
 color_subtle: '#6b7280'
 color_pre_bg: '#1e1e1e'
-events_show_categories: false
-events_show_tags: false
-events_show_author: true
-events_show_date: false
-events_show_event_meta: true
-events_show_hero_image: true
-events_show_description: true
-events_show_prev_next: false
-events_worker_url: https://cms-events.e-anandraj.workers.dev
 color_nav: '#991b1b'

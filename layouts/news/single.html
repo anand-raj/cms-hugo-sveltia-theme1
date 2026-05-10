@@ -33,21 +33,7 @@
     {{ end }}
     {{ end }}
 
-    <div class="post-byline">
-      {{ if $s.news_show_author }}
-        {{ with .Params.author }}<span class="post-author">{{ . }}</span>{{ end }}
-      {{ end }}
-      {{ if $s.news_show_date }}
-        <time class="post-date" datetime="{{ .Date.Format "2006-01-02" }}">
-          {{ .Date.Format "January 2, 2006" }}
-        </time>
-      {{ end }}
-      {{ if $s.news_show_updated }}
-        {{ if ne .Lastmod .Date }}
-          <span class="post-updated">{{ i18n "updated" }} {{ .Lastmod.Format "January 2, 2006" }}</span>
-        {{ end }}
-      {{ end }}
-    </div>
+    {{ partial "post-byline.html" (dict "page" . "s" $s "prefix" "news") }}
 
     {{ if $s.news_show_tags }}
     {{ with .GetTerms "tags" }}

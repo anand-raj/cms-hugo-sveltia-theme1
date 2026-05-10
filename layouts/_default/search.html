@@ -24,125 +24,22 @@
     </header>
 
     <div id="search-status" class="search-status" aria-live="polite"></div>
-    <div id="search-results" class="search-results"></div>
+    <div id="search-results" class="search-results"
+         data-index-url="{{ with .Site.Home.OutputFormats.Get "JSON" }}{{ .RelPermalink }}{{ else }}{{ "index.json" | relURL }}{{ end }}"
+         data-no-results="{{ i18n "search_no_results" }}"
+         data-enter-term="{{ i18n "search_enter_term" }}"
+         data-unavailable="{{ i18n "search_unavailable" }}"
+         data-result-for="{{ i18n "search_result_for" | default "result for" }}"
+         data-results-for="{{ i18n "search_results_for" | default "results for" }}"></div>
 
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@7/dist/fuse.min.js" defer></script>
-<script>
-const hugoI18n = {
-  noResults:    {{ i18n "search_no_results" | jsonify }},
-  enterTerm:    {{ i18n "search_enter_term" | jsonify }},
-  unavailable:  {{ i18n "search_unavailable" | jsonify }},
-  resultFor:    {{ i18n "search_result_for" | default "result for" | jsonify }},
-  resultsFor:   {{ i18n "search_results_for" | default "results for" | jsonify }},
-};
-</script>
-<script>
-(function () {
-  // Use the current language's home JSON output so English search fetches /en/index.json
-  // and Kannada (default) fetches /index.json
-  const indexURL = location.origin + `{{ with .Site.Home.OutputFormats.Get "JSON" }}{{ .RelPermalink }}{{ else }}{{ "index.json" | relURL }}{{ end }}`;
-
-  function getQuery() {
-    return new URLSearchParams(window.location.search).get("q") || "";
-  }
-
-  function sectionLabel(section) {
-    return section.charAt(0).toUpperCase() + section.slice(1);
-  }
-
-  function highlight(text, query) {
-    if (!text || !query) return text || "";
-    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    return text.replace(new RegExp(`(${escaped})`, "gi"), "<mark>$1</mark>");
-  }
-
-  function renderResults(results, query) {
-    const container = document.getElementById("search-results");
-    const status    = document.getElementById("search-status");
-
-    if (!results.length) {
-      status.textContent = query
-        ? `${hugoI18n.noResults} "${query}".`
-        : hugoI18n.enterTerm;
-      container.innerHTML = "";
-      return;
-    }
-
-    status.textContent = `${results.length} ${results.length === 1 ? hugoI18n.resultFor : hugoI18n.resultsFor} "${query}"`;
-
-    container.innerHTML = results.map(({ item }) => `
-      <article class="search-result">
-        <div class="search-result-meta">
-          <span class="card-category">${sectionLabel(item.section)}</span>
-          <span class="search-result-date">${item.date}</span>
-        </div>
-        <h2 class="search-result-title">
-          <a href="${item.url}">${highlight(item.title, query)}</a>
-        </h2>
-        ${item.description
-          ? `<p class="search-result-desc">${highlight(item.description, query)}</p>`
-          : ""}
-      </article>
-    `).join("");
-  }
-
-  function initSearch(index) {
-    const fuse = new Fuse(index, {
-      keys: [
-        { name: "title",       weight: 0.6 },
-        { name: "description", weight: 0.3 },
-        { name: "content",     weight: 0.1 },
-      ],
-      includeScore: true,
-      threshold: 0.35,
-      minMatchCharLength: 2,
-    });
-
-    const input  = document.getElementById("search-input");
-    const query  = getQuery();
-
-    if (query) {
-      input.value = query;
-      renderResults(fuse.search(query), query);
-    }
-
-    // Live search as user types
-    input.addEventListener("input", function () {
-      const q = this.value.trim();
-      const results = q.length >= 2 ? fuse.search(q) : [];
-      renderResults(results, q);
-      // Update URL without reloading
-      const url = new URL(window.location);
-      if (q) { url.searchParams.set("q", q); }
-      else   { url.searchParams.delete("q"); }
-      history.replaceState({}, "", url);
-    });
-  }
-
-  window.addEventListener("DOMContentLoaded", function () {
-    fetch(indexURL)
-      .then(function (r) {
-        if (!r.ok) throw new Error("Failed to load search index");
-        return r.json();
-      })
-      .then(function (data) {
-        // Wait for Fuse to be available (loaded with defer)
-        if (typeof Fuse !== "undefined") {
-          initSearch(data);
-        } else {
-          document.querySelector("script[src*='fuse']").addEventListener("load", function () {
-            initSearch(data);
-          });
-        }
-      })
-      .catch(function (err) {
-        document.getElementById("search-status").textContent = hugoI18n.unavailable;
-        console.error(err);
-      });
-  });
-})();
-</script>
+{{- $fuseIntegrity := "sha384-PCSoOZTpbkikBEtd/+uV3WNdc676i9KUf01KOA8CnJotvlx8rRrETbDuwdjqTYvt" -}}
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"
+        integrity="{{ $fuseIntegrity }}"
+        crossorigin="anonymous"
+        defer></script>
+{{- $searchJS := resources.Get "js/search.js" | minify | fingerprint -}}
+<script src="{{ $searchJS.RelPermalink }}" integrity="{{ $searchJS.Data.Integrity }}" crossorigin="anonymous" defer></script>
 {{ end }}

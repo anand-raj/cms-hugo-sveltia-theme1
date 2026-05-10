@@ -170,12 +170,12 @@
         {{/* 1 · Search */}}
         <div class="sidebar-widget">
           <div class="section-header">
-            <h2 class="section-label">Search</h2>
+            <h2 class="section-label">{{ i18n "search_title" }}</h2>
           </div>
           <form class="search-form" action="{{ "/search/" | relURL }}" method="get">
             <div class="search-input-wrap">
-              <input type="search" name="q" placeholder="Search articles, news…" class="search-input" autocomplete="off">
-              <button type="submit" class="search-btn" aria-label="Search">
+              <input type="search" name="q" placeholder="{{ i18n "search_placeholder" }}" class="search-input" autocomplete="off">
+              <button type="submit" class="search-btn" aria-label="{{ i18n "search_title" }}">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               </button>
             </div>
@@ -189,59 +189,6 @@
   </div>
 </section>
 
-<script>
-(function () {
-  const slider   = document.getElementById('heroSlider');
-  const slides   = Array.from(slider.querySelectorAll('.hero-slide'));
-  const dots     = Array.from(slider.querySelectorAll('.hero-dot'));
-  const total    = slides.length;
-  let   current  = 0;
-  let   timer;
-
-  function goTo(idx) {
-    slides[current].classList.remove('is-active');
-    dots[current].classList.remove('is-active');
-    current = (idx + total) % total;
-    slides[current].classList.add('is-active');
-    dots[current].classList.add('is-active');
-  }
-
-  function startAuto() {
-    timer = setInterval(function () { goTo(current + 1); }, 5000);
-  }
-
-  function resetAuto() {
-    clearInterval(timer);
-    startAuto();
-  }
-
-  document.getElementById('heroNext').addEventListener('click', function () {
-    goTo(current + 1); resetAuto();
-  });
-  document.getElementById('heroPrev').addEventListener('click', function () {
-    goTo(current - 1); resetAuto();
-  });
-  dots.forEach(function (dot) {
-    dot.addEventListener('click', function () {
-      goTo(parseInt(this.dataset.index)); resetAuto();
-    });
-  });
-
-  // Pause on hover
-  slider.addEventListener('mouseenter', function () { clearInterval(timer); });
-  slider.addEventListener('mouseleave', startAuto);
-
-  // Touch / swipe support
-  let touchStartX = 0;
-  slider.addEventListener('touchstart', function (e) {
-    touchStartX = e.changedTouches[0].screenX;
-  }, { passive: true });
-  slider.addEventListener('touchend', function (e) {
-    const diff = touchStartX - e.changedTouches[0].screenX;
-    if (Math.abs(diff) > 40) { goTo(diff > 0 ? current + 1 : current - 1); resetAuto(); }
-  }, { passive: true });
-
-  startAuto();
-})();
-</script>
+{{- $sliderJS := resources.Get "js/slider.js" | minify | fingerprint -}}
+<script src="{{ $sliderJS.RelPermalink }}" integrity="{{ $sliderJS.Data.Integrity }}" crossorigin="anonymous" defer></script>
 {{ end }}

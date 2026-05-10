@@ -55,7 +55,7 @@
         <h2 class="month-primary-title"><a href="{{ $article.RelPermalink }}">{{ $article.Title }}</a></h2>
         {{ with $article.Description }}<p class="month-primary-desc">{{ . }}</p>{{ end }}
         <div class="card-byline">
-          <span>{{ math.Round (div (countwords $article.Content) 200.0) }} {{ i18n "min_read" }}</span>
+          <span>{{ math.Max 1 (math.Round (div (countwords $article.Content) 200.0)) }} {{ i18n "min_read" }}</span>
         </div>
         <a class="featured-post-cta" href="{{ $article.RelPermalink }}">{{ i18n "read_article" }}</a>
       </div>
@@ -75,7 +75,7 @@
           <h3><a href="{{ $card.RelPermalink }}">{{ $card.Title }}</a></h3>
           {{ with $card.Description }}<p class="post-card-desc">{{ . }}</p>{{ end }}
           <div class="card-byline">
-            <span>{{ math.Round (div (countwords $card.Content) 200.0) }} {{ i18n "min_read" }}</span>
+            <span>{{ math.Max 1 (math.Round (div (countwords $card.Content) 200.0)) }} {{ i18n "min_read" }}</span>
           </div>
         </div>
       </article>
@@ -111,40 +111,7 @@
   {{ end }}
 </div>
 
-<script>
-(function () {
-  const groups  = Array.from(document.querySelectorAll('.month-group'));
-  const select  = document.getElementById('monthSelect');
-  const btnPrev = document.getElementById('monthPrev');
-  const btnNext = document.getElementById('monthNext');
-  if (!groups.length || !select) return;
-
-  const keys = groups.map(g => g.dataset.month);
-  let current = 0; // index of the currently shown group (select value)
-
-  function showMonth(idx) {
-    current = Math.max(0, Math.min(idx, keys.length - 1));
-    groups.forEach((g, i) => {
-      g.classList.toggle('month-group--hidden', i !== current);
-    });
-    select.value = keys[current];
-    btnPrev.disabled = current >= keys.length - 1;
-    btnNext.disabled = current <= 0;
-  }
-
-  // Default: show first group (newest month)
-  showMonth(0);
-
-  select.addEventListener('change', function () {
-    const idx = keys.indexOf(this.value);
-    if (idx !== -1) showMonth(idx);
-  });
-
-  // Prev = older (higher index, since newest is index 0)
-  btnPrev.addEventListener('click', () => showMonth(current + 1));
-  // Next = newer (lower index)
-  btnNext.addEventListener('click', () => showMonth(current - 1));
-})();
-</script>
+{{- $mfJS := resources.Get "js/month-filter.js" | minify | fingerprint -}}
+<script src="{{ $mfJS.RelPermalink }}" integrity="{{ $mfJS.Data.Integrity }}" crossorigin="anonymous" defer></script>
 
 {{ end }}
