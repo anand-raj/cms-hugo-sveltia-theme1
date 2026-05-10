@@ -1518,8 +1518,9 @@ img {
 
   svg { display: block; }
 
-  &--x        { background: #000; }
-  &--facebook { background: #1877f2; }
+  &--x         { background: #000; }
+  &--facebook   { background: #1877f2; }
+  &--whatsapp   { background: #25d366; }
 
   &:hover {
     opacity: 0.85;

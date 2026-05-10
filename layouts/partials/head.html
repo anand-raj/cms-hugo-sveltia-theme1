@@ -72,32 +72,49 @@
 <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
 {{ with site.Params.social.twitter }}<meta name="twitter:site" content="@{{ . }}">{{ end }}
 
-{{/* og:image + twitter:image fallback: internal opengraph reads .Params.images (slice);
-     existing content uses .Params.image (string) — bridge the gap.
-     twitter:card is written exactly once: summary_large_image if an image resolves, else summary. */}}
+{{/* og:image + twitter:image — bridges .Params.image (string) to OG/Twitter.
+     Always emits og:image: uses absURL as guaranteed fallback when the image
+     is not in the local page bundle (e.g. content from external repos). */}}
 {{ if and .IsPage (not .Params.images) .Params.image }}
   {{ $src := .Params.image }}
   {{ if hasPrefix $src "http" }}
+    {{/* External URL (Unsplash, Cloudinary, etc.) — use directly */}}
     <meta property="og:image" content="{{ $src }}">
+    <meta property="og:image:secure_url" content="{{ $src }}">
+    <meta property="og:image:alt" content="{{ .Title }}">
     <meta name="twitter:image" content="{{ $src }}">
     <meta name="twitter:card" content="summary_large_image">
   {{ else }}
     {{ $isSVG := strings.HasSuffix (lower $src) ".svg" }}
     {{ if $isSVG }}
-      {{ with .Resources.GetMatch $src }}
-        <meta property="og:image" content="{{ .Permalink }}">
-        <meta name="twitter:image" content="{{ .Permalink }}">
-        <meta name="twitter:card" content="summary_large_image">
-      {{ end }}
+      {{/* SVG — absURL fallback, override with bundle permalink if available */}}
+      {{ $imgURL := $src | absURL }}
+      {{ with .Resources.GetMatch $src }}{{ $imgURL = .Permalink }}{{ end }}
+      <meta property="og:image" content="{{ $imgURL }}">
+      <meta property="og:image:secure_url" content="{{ $imgURL }}">
+      <meta property="og:image:alt" content="{{ .Title }}">
+      <meta name="twitter:image" content="{{ $imgURL }}">
+      <meta name="twitter:card" content="summary_large_image">
     {{ else }}
+      {{/* Local raster — try to resize; always fall back to absURL so tag is never missing */}}
+      {{ $imgURL := $src | absURL }}
+      {{ $width  := "" }}
+      {{ $height := "" }}
       {{ with .Resources.GetMatch $src }}
-        {{ $img := .Resize "1200x630 webp" }}
-        <meta property="og:image" content="{{ $img.Permalink }}">
-        <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="630">
-        <meta name="twitter:image" content="{{ $img.Permalink }}">
-        <meta name="twitter:card" content="summary_large_image">
+        {{ $img   := .Resize "1200x630 webp" }}
+        {{ $imgURL = $img.Permalink }}
+        {{ $width  = "1200" }}
+        {{ $height = "630" }}
       {{ end }}
+      <meta property="og:image" content="{{ $imgURL }}">
+      <meta property="og:image:secure_url" content="{{ $imgURL }}">
+      <meta property="og:image:alt" content="{{ .Title }}">
+      {{ if $width }}
+      <meta property="og:image:width" content="{{ $width }}">
+      <meta property="og:image:height" content="{{ $height }}">
+      {{ end }}
+      <meta name="twitter:image" content="{{ $imgURL }}">
+      <meta name="twitter:card" content="summary_large_image">
     {{ end }}
   {{ end }}
 {{ else }}
