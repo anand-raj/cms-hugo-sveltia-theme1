@@ -2,7 +2,7 @@
 title: Western Ghats – The Green Backbone of India
 date: 2026-05-10T12:57:00+05:30
 lastmod: 2026-05-10T12:57:00+05:30
-draft: true
+draft: false
 description: The Western Ghats are a vital mountain range in India, known for their rich biodiversity, major river systems, and crucial role in shaping the country’s climate.
 author: Admin
 categories:
