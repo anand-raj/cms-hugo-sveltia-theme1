@@ -1,1 +1,4 @@
 baseURL = 'https://anand-raj.github.io/cms-hugo-sveltia-theme1/'
+languageCode = 'kn'
+defaultContentLanguage = 'kn'
+defaultContentLanguageInSubdir = false

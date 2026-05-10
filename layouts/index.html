@@ -19,7 +19,7 @@
            {{ with $p.Params.image }}style="--slide-bg: url('{{ . }}')"{{ end }}>
         <div class="hero-slide-overlay"></div>
         <div class="hero-slide-content">
-          <span class="hero-slide-chip">{{ $p.Section | title }}</span>
+          <span class="hero-slide-chip">{{ i18n $p.Section | default ($p.Section | title) }}</span>
           <h2 class="hero-slide-title">
             <a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>
           </h2>

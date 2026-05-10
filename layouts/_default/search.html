@@ -41,9 +41,9 @@ const hugoI18n = {
 </script>
 <script>
 (function () {
-  // relURL gives the correct subpath regardless of host/port (/index.json or /subpath/index.json)
-  // location.origin gives the correct host+port from the browser
-  const indexURL = location.origin + `{{ "index.json" | relURL }}`;
+  // Use the current language's home JSON output so English search fetches /en/index.json
+  // and Kannada (default) fetches /index.json
+  const indexURL = location.origin + `{{ with .Site.Home.OutputFormats.Get "JSON" }}{{ .RelPermalink }}{{ else }}{{ "index.json" | relURL }}{{ end }}`;
 
   function getQuery() {
     return new URLSearchParams(window.location.search).get("q") || "";

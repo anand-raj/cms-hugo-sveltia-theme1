@@ -1,8 +1,49 @@
 baseURL = '/'
-languageCode = 'en'
-defaultContentLanguage = 'en'
+languageCode = 'kn'
+defaultContentLanguage = 'kn'
+defaultContentLanguageInSubdir = false
 title = 'My New Hugo Project'
 cleanDestinationDir = true
+
+[languages.kn]
+  languageName = "ಕನ್ನಡ"
+  weight = 1
+  contentDir = "content/kn"
+
+  [[languages.kn.menus.main]]
+    name       = "ಲೇಖನಗಳು"
+    url        = "/articles/"
+    weight     = 10
+
+  [[languages.kn.menus.main]]
+    name       = "ಸುದ್ದಿ"
+    url        = "/news/"
+    weight     = 30
+
+  [[languages.kn.menus.main]]
+    name       = "ನಮ್ಮ ಬಗ್ಗೆ"
+    url        = "/about/"
+    weight     = 50
+
+[languages.en]
+  languageName = "EN"
+  weight = 2
+  contentDir = "content/en"
+
+  [[languages.en.menus.main]]
+    name       = "Articles"
+    url        = "/en/articles/"
+    weight     = 10
+
+  [[languages.en.menus.main]]
+    name       = "News"
+    url        = "/en/news/"
+    weight     = 30
+
+  [[languages.en.menus.main]]
+    name       = "About"
+    url        = "/en/about/"
+    weight     = 50
 
 [taxonomies]
   tag      = "tags"
@@ -20,22 +61,4 @@ cleanDestinationDir = true
   [params.social]
     twitter = "yourtwitterhandle"
     github  = "anand-raj"
-
-[[menus.main]]
-  name       = "Articles"
-  identifier = "menu_articles"
-  url        = "/articles/"
-  weight     = 10
-
-[[menus.main]]
-  name       = "News"
-  identifier = "menu_news"
-  url        = "/news/"
-  weight     = 30
-
-[[menus.main]]
-  name       = "About"
-  identifier = "menu_about"
-  url        = "/about/"
-  weight     = 50
 

@@ -1,3 +1,9 @@
+[news]
+other = "News"
+
+[articles]
+other = "Articles"
+
 [read_article]
 other = "Read article →"
 
