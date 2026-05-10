@@ -3,12 +3,6 @@
   <article class="single">
     <header class="post-header">
       <h1>{{ .Title }}</h1>
-      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
-      {{ with .GetTerms "tags" }}
-      <ul class="tags">
-        {{ range . }}<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}
-      </ul>
-      {{ end }}
     </header>
     {{ with .Params.thumbnail }}
       {{ $img := $.Resources.GetMatch . }}

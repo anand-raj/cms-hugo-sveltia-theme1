@@ -28,9 +28,7 @@
       <h2><a href="{{ $featured.RelPermalink }}">{{ $featured.Title }}</a></h2>
       {{ with $featured.Description }}<p class="list-featured-desc">{{ . }}</p>{{ end }}
       <div class="card-byline">
-        <time datetime="{{ $featured.Date.Format "2006-01-02" }}">{{ $featured.Date.Format "January 2, 2006" }}</time>
-        {{ with $featured.Params.author }} · <span>{{ . }}</span>{{ end }}
-          · <span>{{ math.Round (div (countwords $featured.Content) 200.0) }} {{ i18n "min_read" }}</span>
+        {{ with $featured.Params.author }}<span>{{ . }}</span> · {{ end }}<span>{{ math.Round (div (countwords $featured.Content) 200.0) }} {{ i18n "min_read" }}</span>
       </div>
       <a class="featured-post-cta" href="{{ $featured.RelPermalink }}">{{ i18n "read_article" }}</a>
     </div>
@@ -56,8 +54,7 @@
         <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
         {{ with .Description }}<p class="post-card-desc">{{ . }}</p>{{ end }}
         <div class="card-byline">
-          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
-          {{ with .Params.author }} · <span>{{ . }}</span>{{ end }}
+          {{ with .Params.author }}<span>{{ . }}</span>{{ end }}
         </div>
       </div>
     </article>

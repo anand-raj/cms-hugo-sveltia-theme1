@@ -66,19 +66,28 @@
 
 {{/* Hugo internal SEO templates */}}
 {{ template "_internal/opengraph.html" . }}
-{{ template "_internal/twitter_cards.html" . }}
 
-{{/* og:image fallback: internal opengraph reads .Params.images (slice);
-     existing content uses .Params.image (string) — bridge the gap. */}}
+{{/* Twitter / X card — full custom implementation so card type is correct */}}
+<meta name="twitter:title" content="{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}">
+<meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+{{ with site.Params.social.twitter }}<meta name="twitter:site" content="@{{ . }}">{{ end }}
+
+{{/* og:image + twitter:image fallback: internal opengraph reads .Params.images (slice);
+     existing content uses .Params.image (string) — bridge the gap.
+     twitter:card is written exactly once: summary_large_image if an image resolves, else summary. */}}
 {{ if and .IsPage (not .Params.images) .Params.image }}
   {{ $src := .Params.image }}
   {{ if hasPrefix $src "http" }}
     <meta property="og:image" content="{{ $src }}">
+    <meta name="twitter:image" content="{{ $src }}">
+    <meta name="twitter:card" content="summary_large_image">
   {{ else }}
     {{ $isSVG := strings.HasSuffix (lower $src) ".svg" }}
     {{ if $isSVG }}
       {{ with .Resources.GetMatch $src }}
         <meta property="og:image" content="{{ .Permalink }}">
+        <meta name="twitter:image" content="{{ .Permalink }}">
+        <meta name="twitter:card" content="summary_large_image">
       {{ end }}
     {{ else }}
       {{ with .Resources.GetMatch $src }}
@@ -86,9 +95,13 @@
         <meta property="og:image" content="{{ $img.Permalink }}">
         <meta property="og:image:width" content="1200">
         <meta property="og:image:height" content="630">
+        <meta name="twitter:image" content="{{ $img.Permalink }}">
+        <meta name="twitter:card" content="summary_large_image">
       {{ end }}
     {{ end }}
   {{ end }}
+{{ else }}
+  <meta name="twitter:card" content="summary">
 {{ end }}
 
 {{/* JSON-LD structured data */}}
