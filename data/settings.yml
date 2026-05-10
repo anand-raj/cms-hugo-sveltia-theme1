@@ -16,7 +16,7 @@ news_show_hero_image: true
 news_show_description: true
 news_show_prev_next: true
 news_list_page_size: 8
-show_language_switcher: false
+show_language_switcher: true
 body_font: Inter
 heading_font: Inter
 color_primary: '#1f2937'
