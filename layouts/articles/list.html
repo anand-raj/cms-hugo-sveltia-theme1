@@ -53,14 +53,9 @@
       </a>
       {{ end }}
       <div class="month-primary-body">
-        {{ with $article.GetTerms "categories" }}
-        <div class="card-meta">
-          {{ range . }}<a class="card-category" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
-        </div>
-        {{ end }}
         <h2 class="month-primary-title"><a href="{{ $article.RelPermalink }}">{{ $article.Title }}</a></h2>
+        {{ with $article.Description }}<p class="month-primary-desc">{{ . }}</p>{{ end }}
         <div class="card-byline">
-          {{ with $article.Params.author }}<span>{{ . }}</span> · {{ end }}
           <span>{{ math.Round (div (countwords $article.Content) 200.0) }} {{ i18n "min_read" }}</span>
         </div>
         <a class="featured-post-cta" href="{{ $article.RelPermalink }}">{{ i18n "read_article" }}</a>
@@ -78,14 +73,9 @@
           {{ partial "post-image.html" (dict "page" $card "src" . "width" "600" "alt" $card.Title "class" "post-card-image-link" "href" $card.RelPermalink "loading" "lazy") }}
         {{ end }}
         <div class="post-card-body">
-          {{ with $card.GetTerms "categories" }}
-          <div class="card-meta">
-            {{ range . }}<a class="card-category" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
-          </div>
-          {{ end }}
           <h3><a href="{{ $card.RelPermalink }}">{{ $card.Title }}</a></h3>
+          {{ with $card.Description }}<p class="post-card-desc">{{ . }}</p>{{ end }}
           <div class="card-byline">
-            {{ with $card.Params.author }}<span>{{ . }}</span> · {{ end }}
             <span>{{ math.Round (div (countwords $card.Content) 200.0) }} {{ i18n "min_read" }}</span>
           </div>
         </div>
@@ -100,9 +90,14 @@
       <h3 class="month-tertiary-label">{{ i18n "also_this_month" }}</h3>
       <div class="month-tertiary-list">
         {{ range $tertiary }}
+        {{ $tart := . }}
         <a class="month-tertiary-item" href="{{ .RelPermalink }}">
+          {{ with .Params.image }}
+          <div class="month-tertiary-thumb">
+            {{ partial "post-image.html" (dict "page" $tart "src" . "width" "120" "alt" $tart.Title "loading" "lazy") }}
+          </div>
+          {{ end }}
           <span class="month-tertiary-title">{{ .Title }}</span>
-          {{ with .Params.author }}<span class="month-tertiary-author">{{ . }}</span>{{ end }}
         </a>
         {{ end }}
       </div>
