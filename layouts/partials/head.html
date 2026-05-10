@@ -35,9 +35,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 {{ if eq $bodyFont $headingFont }}
-<link href="https://fonts.googleapis.com/css2?family={{ $bodyFont | replaceRE " " "%20" }}:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family={{ $bodyFont | replaceRE " " "+" }}:wght@400;600;700&display=swap" rel="stylesheet">
 {{ else }}
-<link href="https://fonts.googleapis.com/css2?family={{ $bodyFont | replaceRE " " "%20" }}:wght@400;600&family={{ $headingFont | replaceRE " " "%20" }}:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family={{ $bodyFont | replaceRE " " "+" }}:wght@400;600&family={{ $headingFont | replaceRE " " "+" }}:wght@700&display=swap" rel="stylesheet">
 {{ end }}
 {{ end }}
 
@@ -53,7 +53,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 {{ range $kannadaFontsToLoad }}
-<link href="https://fonts.googleapis.com/css2?family={{ . | replaceRE " " "%20" }}:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family={{ . | replaceRE " " "+" }}:wght@400;700&display=swap" rel="stylesheet">
 {{ end }}
 {{ end }}
 
