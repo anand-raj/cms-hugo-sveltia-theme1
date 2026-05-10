@@ -19,6 +19,7 @@ news_list_page_size: 8
 show_language_switcher: true
 body_font: Inter
 heading_font: Inter
+kannada_font: Baloo Tamma 2
 color_primary: '#1f2937'
 color_accent: '#dc2626'
 color_text: '#374151'

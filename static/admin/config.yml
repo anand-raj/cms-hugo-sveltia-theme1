@@ -271,6 +271,11 @@ collections:
             widget: string
             default: "Inter"
             hint: "Any Google Fonts family name — e.g. Playfair Display, Raleway"
+          - label: Kannada / Script Font
+            name: kannada_font
+            widget: string
+            default: "Baloo Tamma 2"
+            hint: "Google Fonts family for Kannada script — e.g. Baloo Tamma 2, Noto Sans Kannada"
 
           # ── Colours ───────────────────────────────────────────────────────
           - label: Primary (header, headings)

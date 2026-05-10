@@ -16,6 +16,7 @@
 {{ $s := hugo.Data.settings }}
 {{ $bodyFont    := default "Inter" $s.body_font }}
 {{ $headingFont := default "Inter" $s.heading_font }}
+{{ $kannadaFont := default "Baloo Tamma 2" $s.kannada_font }}
 {{ $primary     := default "#1a1a2e" $s.color_primary }}
 {{ $accent      := default "#e94560" $s.color_accent }}
 {{ $textColor   := default "#333333" $s.color_text }}
@@ -35,10 +36,12 @@
 <link href="https://fonts.googleapis.com/css2?family={{ $bodyFont | urlize | replaceRE "-" "+" }}:wght@400;600&family={{ $headingFont | urlize | replaceRE "-" "+" }}:wght@700&display=swap" rel="stylesheet">
 {{ end }}
 
-{{/* Always load Baloo Tamma 2 for Kannada script support */}}
+{{/* Load Kannada/script font from settings */}}
+{{ if not (in $systemFonts $kannadaFont) }}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family={{ $kannadaFont | urlize | replaceRE "-" "+" }}:wght@400;600;700&display=swap" rel="stylesheet">
+{{ end }}
 
 <style>
 :root {
@@ -54,7 +57,7 @@
   --color-subtle:  {{ $subtle }};
   --color-pre-bg:  {{ $preBg }};
   --color-nav:     {{ $navColor }};
-  --font-kannada:  'Baloo Tamma 2', sans-serif;
+  --font-kannada:  '{{ $kannadaFont }}', sans-serif;
 }
 </style>
 
