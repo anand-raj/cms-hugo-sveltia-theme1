@@ -36,8 +36,8 @@
     </div>
   </div>
 
-  {{/* ── Featured grid: next 4 items in a 2×2 grid ──────────────────── */}}
-  {{ $featured := first 4 (after 1 $pages) }}
+  {{/* ── Featured grid: next 6 items in a 3×2 grid ──────────────────── */}}
+  {{ $featured := first 6 (after 1 $pages) }}
   {{ if $featured }}
   <div class="news-featured-grid">
     {{ range $featured }}
@@ -58,8 +58,8 @@
   </div>
   {{ end }}
 
-  {{/* ── Compact list: items 6+ on page 1 ────────────────────────── */}}
-  {{ $compact := after 5 $pages }}
+  {{/* ── Compact list: items 8+ on page 1 ──────────────────────── */}}
+  {{ $compact := after 7 $pages }}
   {{ if $compact }}
   <div class="news-compact-list">
     {{ range $compact }}
