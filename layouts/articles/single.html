@@ -93,18 +93,6 @@
       </div>
       {{ end }}
 
-      {{/* Tags */}}
-      {{ with .GetTerms "tags" }}
-      <div class="sidebar-widget">
-        <h2 class="sidebar-widget-title">{{ i18n "tags" }}</h2>
-        <ul class="post-tags">
-          {{ range . }}
-            <li><a href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a></li>
-          {{ end }}
-        </ul>
-      </div>
-      {{ end }}
-
       {{/* More Articles */}}
       {{ if $related }}
       <div class="sidebar-widget">
