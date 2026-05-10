@@ -47,7 +47,7 @@
   </header>
 
   {{/* ── Body ────────────────────────────────────────────────────────────── */}}
-  <div class="post-content">
+  <div class="post-content{{ if eq .Lang "kn" }} kannada-content{{ end }}">
     {{ .Content }}
   </div>
 

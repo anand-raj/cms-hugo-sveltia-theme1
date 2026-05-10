@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; base-uri 'self'; form-action 'self'">
 <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}</title>
 <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
 
@@ -34,7 +34,11 @@
 {{ if or (not (in $systemFonts $bodyFont)) (not (in $systemFonts $headingFont)) }}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family={{ $bodyFont | urlize | replaceRE "-" "+" }}:wght@400;600&family={{ $headingFont | urlize | replaceRE "-" "+" }}:wght@700&display=swap" rel="stylesheet">
+{{ if eq $bodyFont $headingFont }}
+<link href="https://fonts.googleapis.com/css2?family={{ $bodyFont | replaceRE " " "%20" }}:wght@400;600;700&display=swap" rel="stylesheet">
+{{ else }}
+<link href="https://fonts.googleapis.com/css2?family={{ $bodyFont | replaceRE " " "%20" }}:wght@400;600&family={{ $headingFont | replaceRE " " "%20" }}:wght@700&display=swap" rel="stylesheet">
+{{ end }}
 {{ end }}
 
 {{/* Load Kannada fonts from settings */}}
@@ -49,7 +53,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 {{ range $kannadaFontsToLoad }}
-<link href="https://fonts.googleapis.com/css2?family={{ . | urlize | replaceRE "-" "+" }}:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family={{ . | replaceRE " " "%20" }}:wght@400;700&display=swap" rel="stylesheet">
 {{ end }}
 {{ end }}
 
