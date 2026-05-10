@@ -5,6 +5,9 @@ defaultContentLanguageInSubdir = false
 title = 'My New Hugo Project'
 cleanDestinationDir = true
 
+[pagination]
+  pagerSize = 20
+
 [languages.kn]
   languageName = "ಕನ್ನಡ"
   weight = 1

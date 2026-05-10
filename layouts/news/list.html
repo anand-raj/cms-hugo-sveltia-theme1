@@ -1,6 +1,7 @@
 {{ define "main" }}
 
-{{ $pages := .Pages }}
+{{ $paginator := .Paginate .Pages }}
+{{ $pages     := $paginator.Pages }}
 
 <div class="list-hero">
   <div class="list-hero-inner">
@@ -25,36 +26,35 @@
       {{ with $lead.Description }}<p class="news-lead-desc">{{ . }}</p>{{ end }}
       <div class="card-byline">
         <time datetime="{{ $lead.Date.Format "2006-01-02" }}">{{ $lead.Date.Format "January 2, 2006" }}</time>
-        {{ with $lead.Params.author }} · <span>{{ . }}</span>{{ end }}
       </div>
       <a class="news-lead-cta" href="{{ $lead.RelPermalink }}">{{ i18n "read_story" }}</a>
     </div>
   </div>
 
-  {{/* ── News list ────────────────────────────────────────────────────────── */}}
+  {{/* ── Card grid ───────────────────────────────────────────────────────── */}}
   {{ $rest := after 1 $pages }}
   {{ if $rest }}
-  <div class="news-list">
+  <div class="post-grid post-grid--3 news-card-grid">
     {{ range $rest }}
-    {{ $p := . }}
-    <article class="news-item">
+    {{ $card := . }}
+    <article class="post-card">
       {{ with .Params.image }}
-      <a class="news-item-img" href="{{ $p.RelPermalink }}">
-        {{ partial "post-image.html" (dict "page" $p "src" . "width" "300" "alt" $p.Title "loading" "lazy") }}
-      </a>
+        {{ partial "post-image.html" (dict "page" $card "src" . "width" "600" "alt" $card.Title "class" "post-card-image-link" "href" $card.RelPermalink "loading" "lazy") }}
       {{ end }}
-      <div class="news-item-body">
-        <h3 class="news-item-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-        {{ with .Description }}<p class="news-item-desc">{{ . }}</p>{{ end }}
+      <div class="post-card-body">
+        <h3><a href="{{ $card.RelPermalink }}">{{ $card.Title }}</a></h3>
+        {{ with $card.Description }}<p class="post-card-desc">{{ . }}</p>{{ end }}
         <div class="card-byline">
-          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
-          {{ with .Params.author }} · <span>{{ . }}</span>{{ end }}
+          <time datetime="{{ $card.Date.Format "2006-01-02" }}">{{ $card.Date.Format "Jan 2, 2006" }}</time>
         </div>
       </div>
     </article>
     {{ end }}
   </div>
   {{ end }}
+
+  {{/* ── Pagination ──────────────────────────────────────────────────────── */}}
+  {{ template "_internal/pagination.html" . }}
 
   {{ else }}
   <p class="no-posts">{{ i18n "no_news" }}</p>
