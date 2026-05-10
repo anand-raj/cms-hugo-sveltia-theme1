@@ -1,7 +1,7 @@
 {{ define "main" }}
 
 {{ $allPages  := .Pages.ByLastmod.Reverse }}
-{{ $grouped   := $allPages.GroupByDate "January 2006" }}
+{{ $grouped   := $allPages.GroupByLastmod "January 2006" }}
 {{ $showCount := 4 }}{{/* months visible by default */}}
 
 <div class="list-hero">
